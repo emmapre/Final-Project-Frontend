@@ -5,5 +5,11 @@ export const cake = createSlice({
   initialState: {
     cakeLayers: []
   },
-  reducers: {}
+  reducers: {
+    addLayerIngredient: (state, action) => {
+      console.log(action)
+    }
+
+
+  }
 })
