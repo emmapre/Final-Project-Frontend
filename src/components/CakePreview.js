@@ -2,25 +2,51 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
 import { CakeLayer } from '../lib/CakeLayer'
-
+import { layers } from '../reducers/layers'
+import { cake } from '../reducers/cake'
 
 
 export const CakePreview = () => {
 
-  const cakeLayers = useSelector(
-    (store) => store.chosenIngredients
+
+
+
+  const chosenLayers = useSelector(
+    (store) => store.cake.chosenIngredients
   )
+
 
   return (
     <div>
 
       <h1>Your cake</h1>
+
+
+
+      {chosenLayers.map((layer, index) => (
+        <div>
+          <h4 key={index}>
+            {layer.layerName}
+          </h4>
+          <p>{layer.layerName}</p>
+        </div>))}
+      {/* {
+              layer.ingredients.map((ingredient, index) => (
+                <input
+                  type='button'
+                  key={index}
+                  id={index}
+                  name='ingredient'
+                  value={ingredient.ingredientName}
+                  ingredient={ingredient.ingredientName}
+                >
+            ))} */}
       {/* <div className='cake-preview'>
         {cakeLayers.map((layer) => (
           // <CakeLayer key={layer.name}
           //   layer={layer}
           // />
-          <p>{layer.name}</p>
+          
         ))}
       </div> */}
     </div>

@@ -1,4 +1,5 @@
 import React from 'react'
+import useSelector from 'react-redux'
 import styled from 'styled-components/macro'
 
 
@@ -8,15 +9,12 @@ const CakeLayerIngredient = styled.div`
   background-color: red;
 `
 
+export const CakeLayer = () => {
 
-export const CakeLayer = ({
-
-  layer
-}) => {
   return (
     <CakeLayerIngredient>
-      <p>{layer.name}</p>
-    </CakeLayerIngredient>
+      {/* <p>{layer.name}</p> */}
+    </CakeLayerIngredient >
   )
 }
 

@@ -50,7 +50,27 @@ export const CakeForm = () => {
         {layers.map((layer, index) => (
           <label key={index}>
             {layer.name}
-            <select
+            {
+              layer.ingredients.map((ingredient, index) => (
+                <input
+                  type='button'
+                  key={index}
+                  id={index}
+                  name='ingredient'
+                  value={ingredient.ingredientName}
+                  ingredient={ingredient.ingredientName}
+                  onClick={() => dispatch(cake.actions.addLayerIngredient({ layerName: layer.name, ingredientName: layer.ingredients.ingredientName, ingredientColor: layer.ingredients.ingredientColor }))}
+                >
+                  {/* {ingredient.ingredientName} */}
+                </input>
+              ))
+            }
+
+
+
+
+
+            {/* <select
               onChange={() => dispatch(cake.actions.addLayerIngredient({ layerName: layer.name, ingredientName: layer.ingredients.ingredientName, ingredientColor: layer.ingredients.ingredientColor }))
               } >
               {
@@ -65,7 +85,7 @@ export const CakeForm = () => {
                   </option>
                 ))
               }
-            </select>
+            </select> */}
           </label>
         ))}
 
