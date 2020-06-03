@@ -9,7 +9,7 @@ export const cake = createSlice({
   reducers: {
     addLayerIngredient: (state, action) => {
       console.log(action)
-      state.cakeLayers.push({ ...action.payload, quantity: 1 })
+      state.chosenIngredients.push({ ...action.payload })
     }
   }
 })

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components/macro'
 import { Button } from '../lib/Button'
 import { layers } from '../reducers/layers'
@@ -14,9 +14,14 @@ const CakeFormContainer = styled.form`
 
 export const CakeForm = () => {
   // const allSelects = useSelector((store) => store.layers)
-  // const dispatch = useDispatch()
   const [ingredientIndex, setIngredientIndex] = useState()
+  const dispatch = useDispatch()
 
+
+  const [thisIngredient, setThisIngredient] = useState()
+
+
+  //den här gör så att mappingen funkar, förstör inte!!
   const layers = useSelector(
     (store) => store.layers.layerIngredients
   )
@@ -24,7 +29,17 @@ export const CakeForm = () => {
   //   (store) => store.layers.ingredients.find((a) => a.layerId === layers.id)
   // )
 
+  //  const chosenIngredients = useSelector(
+  //     (store) => store.layers.ingredients.find((a) => a.layerId === layer.id)
+  //   )
 
+
+  // const handleOnChange = () => {
+  //   dispatch(cake.actions.addLayerIngredient({ layerId: layer.id, layerIndex: layer.ingredients.index }))
+  //   // ({ questionId: question.id, answerIndex: index })
+
+  //   // setIngredientIndex(index) // sätta index på den man klickat på
+  // }
 
 
   return (
@@ -35,17 +50,21 @@ export const CakeForm = () => {
         {layers.map((layer, index) => (
           <label key={index}>
             {layer.name}
-            <select>
-              {layer.ingredients.map((ingredient, index) => (
-                <option
-                  key={index}
-                  id={index}
-                  name='ingredient'
-                  value={ingredient}
-                  ingredient={ingredient}
-                >{ingredient}
-                </option>
-              ))}
+            <select
+              onChange={() => dispatch(cake.actions.addLayerIngredient({ layerName: layer.name, ingredientName: layer.ingredients.ingredientName, ingredientColor: layer.ingredients.ingredientColor }))
+              } >
+              {
+                layer.ingredients.map((ingredient, index) => (
+                  <option
+                    key={index}
+                    id={index}
+                    name='ingredient'
+                    value={ingredient.ingredientName}
+                    ingredient={ingredient.ingredientName}
+                  >{ingredient.ingredientName}
+                  </option>
+                ))
+              }
             </select>
           </label>
         ))}
@@ -62,42 +81,8 @@ export const CakeForm = () => {
 
 
 
+
         {/* <label>
-          Topping
-            <select id='topping' name='topping'>
-            <option value='strawberries'>Strawberries</option>
-            <option value='blueberries'>Blueberries</option>
-          </select>
-        </label>
-        <label>
-          Coating
-            <select id='coating' name='coating'>
-            <option value='cream'>Cream</option>
-            <option value='frosting'>Frosting</option>
-          </select>
-        </label>
-        <label>
-          First Layer
-            <select id='firstlayer' name='firstlayer'>
-            <option value='jam'>Jam</option>
-            <option value='custard'>Custard</option>
-          </select>
-        </label>
-        <label>
-          Second Layer
-            <select id='secondlayer' name='secondlayer'>
-            <option value='jam'>Jam</option>
-            <option value='custard'>Custard</option>
-          </select>
-        </label>
-        <label>
-          Cake
-            <select id='cake' name='cake'>
-            <option value='chocolate'>Chocolate</option>
-            <option value='vanilla'>Vanilla</option>
-          </select>
-        </label>
-        <label>
           Name your cake
             <input type='text' id='cakename' name='cakename' />
         </label> */}
