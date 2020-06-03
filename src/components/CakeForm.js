@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
 import { Button } from '../lib/Button'
-import { Select } from '../lib/Select'
+import { layers } from '../reducers/layers'
+import { cake } from '../reducers/cake'
+// import { Select } from '../lib/Select'
 
 const CakeFormContainer = styled.form`
   display: flex;
@@ -11,16 +13,54 @@ const CakeFormContainer = styled.form`
 `
 
 export const CakeForm = () => {
-  const allSelects = useSelector((store) => store.layers)
+  // const allSelects = useSelector((store) => store.layers)
+  // const dispatch = useDispatch()
+  const [ingredientIndex, setIngredientIndex] = useState()
+
+  const layers = useSelector(
+    (store) => store.layers.layerIngredients
+  )
+  // const ingredient = useSelector(
+  //   (store) => store.layers.ingredients.find((a) => a.layerId === layers.id)
+  // )
+
+
+
 
   return (
     <>
-      {/* <FormTitle /> */}
+
       <CakeFormContainer>
 
-        {allSelects.map((layer) => (
-          <Select key={layer.name} layer={layer} />
+        {layers.map((layer, index) => (
+          <label key={index}>
+            {layer.name}
+            <select>
+              {layer.ingredients.map((ingredient, index) => (
+                <option
+                  key={index}
+                  id={index}
+                  name='ingredient'
+                  value={ingredient}
+                  ingredient={ingredient}
+                >{ingredient}
+                </option>
+              ))}
+            </select>
+          </label>
         ))}
+
+
+
+
+        {/* {allSelects.map((layer) => (
+          <Select key={layer.name} layer={layer} />
+        ))} */}
+
+
+
+
+
 
         {/* <label>
           Topping
@@ -61,7 +101,7 @@ export const CakeForm = () => {
           Name your cake
             <input type='text' id='cakename' name='cakename' />
         </label> */}
-        <Button
+        < Button
           buttonText='Order Cake'
           backgroundColor='#713939'
           borderProperties='solid 2px #5D5D5D'

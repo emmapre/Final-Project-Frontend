@@ -1,14 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const layerIngredientsData = [
-  { name: 'Topping', ingredient1: 'Strawberries', ingredient2: 'Custard' },
-  { name: 'Coating', ingredient1: 'Cream', ingredient2: 'Frosting' },
-  { name: 'First filling', ingredient1: 'Jam', ingredient2: 'Custard' },
-  { name: 'Second filling', ingredient1: 'Jam', ingredient2: 'Custard' },
-  { name: 'Sponge', ingredient1: 'Chocolate', ingredient2: 'Vanilla' }
+const layerIngredients = [
+  { id: 1, name: 'Topping', ingredients: ['Strawberries', 'Blueberries'] },
+  { id: 2, name: 'Coating', ingredients: ['Cream', 'Frosting'] },
+  { id: 3, name: 'First filling', ingredients: ['Jam', 'Custard'] },
+  { id: 4, name: 'Second filling', ingredients: ['Jam', 'Custard'] },
+  { id: 5, name: 'Sponge', ingredients: ['Chocolate', 'Vanilla'] }
 ]
+
+const initialState =
+{
+  layerIngredients,
+  currentLayerIndex: 0,
+  chosenIngredients: []
+}
+
 
 export const layers = createSlice({
   name: 'layers',
-  initialState: layerIngredientsData
+  initialState
 })
