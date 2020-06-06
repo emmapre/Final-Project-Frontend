@@ -70,7 +70,7 @@ export const CakeForm = () => {
 
 
 
-            {/* <select
+            <select
               onChange={() => dispatch(cake.actions.addLayerIngredient({ layerName: layer.name, ingredientName: layer.ingredients.ingredientName, ingredientColor: layer.ingredients.ingredientColor }))
               } >
               {
@@ -85,7 +85,7 @@ export const CakeForm = () => {
                   </option>
                 ))
               }
-            </select> */}
+            </select>
           </label>
         ))}
 

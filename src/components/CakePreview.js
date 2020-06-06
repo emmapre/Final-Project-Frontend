@@ -21,14 +21,12 @@ export const CakePreview = () => {
 
       <h1>Your cake</h1>
 
-
-
       {chosenLayers.map((layer, index) => (
         <div>
           <h4 key={index}>
             {layer.layerName}
           </h4>
-          <p>{layer.layerName}</p>
+          <p>{layer.layerIngredient}</p>
         </div>))}
       {/* {
               layer.ingredients.map((ingredient, index) => (
