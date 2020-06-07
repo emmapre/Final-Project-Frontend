@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
 
@@ -6,6 +7,8 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  width: 100%;
   height: 70px;
   padding: 20px;
   background-color: #713939;
@@ -44,10 +47,10 @@ export const Header = () => {
         <Title>CakeMaker</Title>
       </LogoTitleContainer>
       <MenuList>
-        <a href='www.google.com'><li>Maker</li></a>
-        <a href='www.google.com'><li>Info</li></a>
-        <a href='www.google.com'><li>Latest</li></a>
-        <a href='www.google.com'><li>Admin</li></a>
+        <Link to='/cakeMaker'><li>Maker</li></Link>
+        <Link to='/info'><li>Info</li></Link>
+        <Link to='/signup'><li>SignUp</li></Link>
+        <Link to='/signin'><li>SignIn</li></Link>
       </ MenuList>
     </StyledHeader>
   )
