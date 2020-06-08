@@ -1,7 +1,9 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { user, signout } from '../reducers/user'
 import styled from 'styled-components/macro'
-
+import { Button } from '../lib/Button'
 
 const StyledHeader = styled.header`
   display: flex;
@@ -40,17 +42,39 @@ const MenuList = styled.ul`
 
 
 export const Header = () => {
+  const dispatch = useDispatch();
+  const history = useHistory()
+
+  useEffect(() => {
+    if (signout) {
+      history.push('/')
+    }
+  }, [signout]);
+
+
   return (
     <StyledHeader>
       <LogoTitleContainer>
         <Logo />
-        <Title>CakeMaker</Title>
+        <Link to='/'>
+          <Title>CakeMaker</Title>
+        </Link>
       </LogoTitleContainer>
       <MenuList>
         <Link to='/cakeMaker'><li>Maker</li></Link>
         <Link to='/info'><li>Info</li></Link>
         <Link to='/signup'><li>SignUp</li></Link>
         <Link to='/signin'><li>SignIn</li></Link>
+        <Link to='/'>
+          <Button
+            buttonText='Sign out'
+            backgroundColor='#713939'
+            borderProperties='solid 2px #5D5D5D'
+            width='120px'
+            color='#fff'
+            onClick={(event) => dispatch(signout())}
+          />
+        </Link>
       </ MenuList>
     </StyledHeader>
   )

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { user, signin } from '../reducers/user'
@@ -43,6 +43,7 @@ const Credit = styled.a`
 
 export const SignIn = () => {
   const dispatch = useDispatch();
+  const history = useHistory()
   const accessToken = useSelector((store) => store.user.signin.accessToken);
   const errorMessage = useSelector((store) => store.user.signin.errorMessage);
   const [email, setEmail] = useState('');
@@ -56,6 +57,12 @@ export const SignIn = () => {
     event.preventDefault()
     dispatch(signin(email, password))
   }
+
+  useEffect(() => {
+    if (accessToken) {
+      history.push('/cakemaker')
+    }
+  }, [accessToken]);
 
   return (
     <Content>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { user, signup } from '../reducers/user'
 import { Button } from 'lib/Button'
@@ -41,8 +41,10 @@ const Credit = styled.a`
 
 export const SignUp = () => {
   const dispatch = useDispatch();
+  const history = useHistory()
   // const accessToken = useSelector((store) => store.user.signin.accessToken);
   const errorMessage = useSelector((store) => store.user.signin.errorMessage);
+  const statusMessage = useSelector((store) => store.user.signin.statusMessage);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -56,6 +58,13 @@ export const SignUp = () => {
     setEmail('')
     setPassword('')
   }
+
+  useEffect(() => {
+    if (statusMessage) {
+      history.push('/signin')
+    }
+  }, [statusMessage]);
+
 
   return (
 
@@ -104,6 +113,7 @@ export const SignUp = () => {
             />
           </Link>
         </div>
+        {statusMessage && <Message> {`${statusMessage}`}</Message>}
         {errorMessage && <Message> {`${errorMessage}`}</Message>}
       </Form>
     </Content>

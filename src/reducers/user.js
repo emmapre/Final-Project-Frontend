@@ -5,7 +5,8 @@ const initialState = {
     accessToken: null,
     userId: 0,
     statusMessage: '',
-    errorMessage: null
+    errorMessage: null,
+    isSignedIn: false,
   }
 }
 
@@ -34,6 +35,11 @@ export const user = createSlice({
       console.log(`Error Message: ${errorMessage}`)
       state.signin.errorMessage = errorMessage
     },
+    setIsSignedIn: (state, action) => {
+      const { isSignedIn } = action.payload;
+      state.login.isSignedIn = isSignedIn;
+      localStorage.setItem("isSignedIn", JSON.stringify(isSignedIn));
+    },
   }
 
 })
@@ -59,6 +65,7 @@ export const signup = (name, email, password) => {
         dispatch(user.actions.setAccessToken({
           accessToken: json.accessToken
         }))
+        dispatch(user.actions.setStatusMessage({ statusMessage: `Registry done for ${user.name}.` }))
         // dispatch(user.action.setUserId({ userId: json.userId }))
         // dispatch(user.action.setEmail({ email: json.email }))
       })
@@ -133,7 +140,6 @@ export const signin = (email, password) => {
 //SIGN OUT THUNK
 export const signout = () => {
   return (dispatch) => {
-    dispatch(user.actions.setSecretMessage({ secretMessage: null }))
     dispatch(user.actions.setErrorMessage({ errorMessage: null }))
     dispatch(user.actions.setAccessToken({ accessToken: null }))
     dispatch(user.actions.setUserId({ userId: 0 }))
