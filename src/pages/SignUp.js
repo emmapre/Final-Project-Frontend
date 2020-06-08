@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { user, signup } from '../reducers/user'
 import { Button } from 'lib/Button'
 import styled from 'styled-components/macro'
 
@@ -38,61 +40,48 @@ const Credit = styled.a`
 `
 
 export const SignUp = () => {
-  const url = 'https://find-emmas-secrets.herokuapp.com/users'
-  const [signUpValues, setSignUpValues] = useState({
-    name: '',
-    email: '',
-    password: ''
-  })
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
+  const dispatch = useDispatch();
+  // const accessToken = useSelector((store) => store.user.signin.accessToken);
+  const errorMessage = useSelector((store) => store.user.signin.errorMessage);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleSubmit = event => {
+
+
+  const handleSignUp = event => {
     event.preventDefault()
-
-    fetch(url,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(signUpValues)
-      }
-    ).then(res => {
-      if (!res.ok) {
-        throw new Error("Unable to sign up.")
-      }
-      res.json()
-    })
-      .catch((err) => {
-        setError(err.message)
-      })
-      .then(() => {
-        setSuccess(`Registry done for ${signUpValues.name}.`)
-        setSignUpValues({
-          name: '',
-          email: '',
-          password: ''
-        })
-      })
+    dispatch(signup(name, email, password))
+    setName('')
+    setEmail('')
+    setPassword('')
   }
 
   return (
 
     <Content>
       <Title>Sign up.</Title>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSignUp}>
         <Label>
           Name
-        <input type='text' value={signUpValues.name} onChange={event => setSignUpValues({ ...signUpValues, name: event.target.value })} />
+        <input
+            type='text'
+            value={name}
+            onChange={(event) => setName(event.target.value)} />
         </Label>
         <Label>
           E-mail
-        <input type='email' required value={signUpValues.email} onChange={event => setSignUpValues({ ...signUpValues, email: event.target.value })} />
+        <input type='email'
+            required
+            value={email}
+            onChange={(event) => setEmail(event.target.value)} />
         </Label>
         <Label>
           Password
-        <input type='password' required minLength='4' value={signUpValues.password} onChange={event => setSignUpValues({ ...signUpValues, password: event.target.value })} />
+        <input type='password'
+            required
+            minLength='4'
+            value={password} onChange={(event) => setPassword(event.target.value)} />
         </Label>
         <div>
           <Button
@@ -115,8 +104,7 @@ export const SignUp = () => {
             />
           </Link>
         </div>
-        {success && <Message>{success}</Message>}
-        {error && <Message>{error}</Message>}
+        {errorMessage && <Message> {`${errorMessage}`}</Message>}
       </Form>
     </Content>
 

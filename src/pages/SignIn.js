@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { user, signin } from '../reducers/user'
 import { Button } from 'lib/Button'
 import styled from 'styled-components/macro'
 
@@ -38,61 +40,45 @@ const Credit = styled.a`
   font-size: 10px;
 `
 
+
 export const SignIn = () => {
-  const url = 'http://localhost:8087/'
-  const history = useHistory()
-  const [signInValues, setSignInValues] = useState({
-    email: '',
-    password: ''
-  })
-  const [error, setError] = useState('')
+  const dispatch = useDispatch();
+  const accessToken = useSelector((store) => store.user.signin.accessToken);
+  const errorMessage = useSelector((store) => store.user.signin.errorMessage);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleSubmit = event => {
+  const SIGNIN_URL = 'http://localhost:8087/users'
+
+
+
+  const handleSignin = event => {
     event.preventDefault()
-
-    fetch(url,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(signInValues)
-      }
-    )
-
-      .then(res => {
-        if (!res.ok) {
-          throw new Error('Unable to sign in.')
-        }
-        res.json().then(data => {
-          if (data.notFound !== true) {
-            localStorage.setItem('accessToken', data.accessToken)
-            history.push('/secretpage')
-          }
-        })
-      })
-      .catch((err) => {
-        setError(err.message)
-      })
-      .then(() => {
-        setSignInValues({
-          email: '',
-          password: ''
-        })
-      })
+    dispatch(signin(email, password))
   }
 
   return (
     <Content>
       <Title>Sign in.</Title>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSignin}>
         <Label>
           E-mail
-        <input type='email' required value={signInValues.email} onChange={event => setSignInValues({ ...signInValues, email: event.target.value })} />
+        <input
+            type='email'
+            required
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
         </Label>
         <Label>
           Password
-        <input type='password' required minLength='4' value={signInValues.password} onChange={event => setSignInValues({ ...signInValues, password: event.target.value })} />
+        <input
+            type='password'
+            required
+            minLength='4'
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
         </Label>
         <div>
           <Button
@@ -114,7 +100,7 @@ export const SignIn = () => {
             />
           </Link>
         </div>
-        {error && <Message>{error}</Message>}
+        {errorMessage && <Message> {`${errorMessage}`}</Message>}
       </Form>
     </Content>
 
