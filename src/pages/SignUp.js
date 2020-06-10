@@ -34,10 +34,6 @@ const Message = styled.p`
   color: #5D5D5D;
   text-align: center;
 `
-const Credit = styled.a`
-  color: #5D5D5D;
-  font-size: 10px;
-`
 
 export const SignUp = () => {
   const dispatch = useDispatch();

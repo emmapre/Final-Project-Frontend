@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'lib/Button'
 import styled from 'styled-components/macro'
-
+import { fetchLayerIngredients, layers } from '../reducers/layers'
+import { useSelector, useDispatch } from 'react-redux'
 
 const Content = styled.div`
   display: flex;
@@ -22,12 +23,9 @@ const Title = styled.h1`
   font-family: 'Varela Round', sans-serif;
   text-align: center;
 `
-const Credit = styled.a`
-  color: #5D5D5D;
-  font-size: 10px;
-`
 
 export const LandingPage = () => {
+  const dispatch = useDispatch()
 
   return (
     <Content>

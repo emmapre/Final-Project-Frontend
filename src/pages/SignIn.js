@@ -35,11 +35,6 @@ const Message = styled.p`
   color: #5D5D5D;
   text-align: center;
 `
-const Credit = styled.a`
-  color: #5D5D5D;
-  font-size: 10px;
-`
-
 
 export const SignIn = () => {
   const dispatch = useDispatch();
@@ -48,10 +43,6 @@ export const SignIn = () => {
   const errorMessage = useSelector((store) => store.user.signin.errorMessage);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const SIGNIN_URL = 'http://localhost:8087/users'
-
-
 
   const handleSignin = event => {
     event.preventDefault()

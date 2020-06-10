@@ -12,9 +12,26 @@ export const OrderForm = () => {
   return (
     <OrderFormContainer>
       <label>
-        <input value></input>
+        Name
+        <input type='text' />
       </label>
-
+      <label>
+        Adress
+        <input type='text' />
+      </label>
+      <label>
+        Phone number
+        <input type='text' />
+      </label>
+      <label>
+        How do you want to pay?
+        <input type="radio" name="pay" value="swish" />
+        <label for="swish">Swish</label>
+        <input type="radio" name="pay" value="card" />
+        <label for="card">Card</label>
+        <input type="radio" name="pay" value="cash" />
+        <label for="cash">Cash</label>
+      </label>
 
       <Button
         buttonText='Place your Order'
@@ -24,10 +41,5 @@ export const OrderForm = () => {
         color='#fff'
       />
     </OrderFormContainer>
-
-
   )
-
-
-
 }

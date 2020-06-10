@@ -2,15 +2,25 @@ import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import { Header } from './components/Header'
+
+import { user } from './reducers/user'
+import { cake } from './reducers/cake'
+import { layers } from './reducers/layers'
+
 import { LandingPage } from './pages/LandingPage'
-import { CakeForm } from './components/CakeForm'
 import { SignUp } from './pages/SignUp'
 import { SignIn } from './pages/SignIn'
 import { InfoPage } from './pages/InfoPage'
-import { user } from './reducers/user'
+
+import { Header } from './components/Header'
+import { CakeForm } from './components/CakeForm'
+// import { OrderForm } from './components/OrderForm'
+
+
 
 const reducer = combineReducers({
+  cake: cake.reducer,
+  layers: layers.reducer,
   user: user.reducer,
 })
 

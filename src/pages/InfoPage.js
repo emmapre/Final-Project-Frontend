@@ -18,8 +18,6 @@ const Content = styled.div`
 export const InfoPage = () => {
 
   return (
-
-
     <Content>
       <p>
         This is my final project at Technigo's bootcamp. In the project I've been using React, Redux, Express API, node.js and MongoDB.

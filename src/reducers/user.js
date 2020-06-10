@@ -6,7 +6,6 @@ const initialState = {
     userId: 0,
     statusMessage: '',
     errorMessage: null,
-    isSignedIn: false,
   }
 }
 
@@ -35,11 +34,11 @@ export const user = createSlice({
       console.log(`Error Message: ${errorMessage}`)
       state.signin.errorMessage = errorMessage
     },
-    setIsSignedIn: (state, action) => {
-      const { isSignedIn } = action.payload;
-      state.login.isSignedIn = isSignedIn;
-      localStorage.setItem("isSignedIn", JSON.stringify(isSignedIn));
-    },
+    // setIsSignedIn: (state, action) => {
+    //   const { isSignedIn } = action.payload;
+    //   state.login.isSignedIn = isSignedIn;
+    //   localStorage.setItem("isSignedIn", JSON.stringify(isSignedIn));
+    // },
   }
 
 })
@@ -66,7 +65,7 @@ export const signup = (name, email, password) => {
           accessToken: json.accessToken
         }))
         dispatch(user.actions.setStatusMessage({ statusMessage: `Registry done for ${user.name}.` }))
-        // dispatch(user.action.setUserId({ userId: json.userId }))
+        dispatch(user.action.setUserId({ userId: json._id }))
         // dispatch(user.action.setEmail({ email: json.email }))
       })
       .catch((err) => {
