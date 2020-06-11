@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 
 import { user } from './reducers/user'
-import { cake } from './reducers/cake'
+import { cakeOrder } from './reducers/cakeOrder'
 import { layers } from './reducers/layers'
 
 import { LandingPage } from './pages/LandingPage'
@@ -15,11 +15,11 @@ import { InfoPage } from './pages/InfoPage'
 import { Header } from './components/Header'
 import { CakeForm } from './components/CakeForm'
 // import { OrderForm } from './components/OrderForm'
-
+import styled from 'styled-components/macro'
 
 
 const reducer = combineReducers({
-  cake: cake.reducer,
+  cakeOrder: cakeOrder.reducer,
   layers: layers.reducer,
   user: user.reducer,
 })
@@ -29,6 +29,7 @@ export const store = configureStore({ reducer })
 export const App = () => {
   return (
     <Provider store={store}>
+
       <BrowserRouter>
         <Header />
         <Switch>
@@ -49,6 +50,7 @@ export const App = () => {
           </Route>
         </Switch>
       </BrowserRouter>
+
     </Provider>
   )
 }

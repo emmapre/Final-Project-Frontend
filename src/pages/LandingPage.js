@@ -10,12 +10,13 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 50vh;
+  max-width: 100vw;
+  /* height: 50vh;  */ 
   
   @media (min-width: 768px) {
-    width: 50vw;
-    height: 100vh;
+    width: 50%;
+   margin: auto;
+   
   }
 `
 const Title = styled.h1`
@@ -24,44 +25,69 @@ const Title = styled.h1`
   text-align: center;
 `
 
+const Message = styled.p`
+  font-size: 14px;
+  color: #5D5D5D;
+  text-align: center;
+`
+
+const StartCakeMaker = styled(Link)` 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+`
+
+const SignContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 export const LandingPage = () => {
   const dispatch = useDispatch()
 
   return (
     <Content>
-      <Title>This is the CakeMaker.</Title>
-      <p>Click the button to start making your special cake.</p>
+      <Title>This is the CakeMaker</Title>
+      <Message>Order your special cake where you choose the ingredients. </Message>
+      <Message>Click the button to start.</Message>
       <div>
-        <Link to='/cakemaker'>
+        <StartCakeMaker to='/cakemaker'>
           <Button
             buttonText='Start the Cake Maker'
-            backgroundColor='#FBC4C4'
+            backgroundColor='#9DBFA4'
             color='#5D5D5D'
             borderProperties='solid 2px #5D5D5D'
-            width='240px'
+            width='300px'
+            height='80px'
             fontFamily='"Varela Round", sans-serif'
+            fontSize='22px'
           />
-        </Link>
-        <Link to='/signup'>
-          <Button
-            buttonText='Sign Up'
-            backgroundColor='#00D3C2'
-            color='#5D5D5D'
-            borderProperties='solid 2px #5D5D5D'
-            width='120px'
-            fontFamily='"Varela Round", sans-serif'
-          />
-        </Link>
-        <Link to='/signin'>
-          <Button
-            buttonText='Sign In'
-            backgroundColor='#F86AB0'
-            color='#5D5D5D'
-            borderProperties='solid 2px #5D5D5D'
-            width='120px'
-            fontFamily='"Varela Round", sans-serif'
-          />
-        </Link>
+        </StartCakeMaker>
+
+        <SignContainer>
+          <Link to='/signup'>
+            <Button
+              buttonText='Sign Up'
+              backgroundColor='#FBC4C4'
+              color='#5D5D5D'
+              borderProperties='solid 2px #5D5D5D'
+              width='120px'
+              fontFamily='"Varela Round", sans-serif'
+            />
+          </Link>
+          <Link to='/signin'>
+            <Button
+              buttonText='Sign In'
+              backgroundColor='#F7E3B2'
+              color='#5D5D5D'
+              borderProperties='solid 2px #5D5D5D'
+              width='120px'
+              fontFamily='"Varela Round", sans-serif'
+            />
+          </Link>
+        </SignContainer>
       </div>
     </Content>
   )

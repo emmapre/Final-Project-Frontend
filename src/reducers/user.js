@@ -104,7 +104,7 @@ export const signin = (email, password) => {
         )
       })
       .catch((err) => {
-        dispatch(user.actions.signout())
+        // dispatch(user.actions.signout())
         dispatch(user.actions.setErrorMessage({ errorMessage: err }))
       })
   }

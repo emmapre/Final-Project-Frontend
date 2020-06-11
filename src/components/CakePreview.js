@@ -3,50 +3,122 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
 import { CakeLayer } from '../lib/CakeLayer'
 import { layers } from '../reducers/layers'
-import { cake } from '../reducers/cake'
+import { cakeOrder } from '../reducers/cakeOrder'
+import { generatePath } from 'react-router'
 
+
+const CakePreviewContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-direction: column;
+  width: 400px;
+
+    h4{
+      margin: 0;
+    }
+`
+const CakeLayerPreview = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+`
 
 export const CakePreview = () => {
 
-
-
-
-  const chosenLayers = useSelector(
-    (store) => store.cake.chosenIngredients
+  const chosenIngredients = useSelector(
+    (store) => store.cakeOrder.chosenIngredients
   )
-
 
   return (
     <div>
 
       <h1>Your cake</h1>
 
-      {chosenLayers.map((layer) => (
+      {chosenIngredients.map((layer) => (
         <div>
           <h4 key={layer._id}>
             {layer.layerName}
           </h4>
-          <p>{layer.layerIngredient}</p>
+          <CakeLayer
+            backgroundColor={layer.ingredientColor}
+            ingredientName={layer.ingredientName}
+          />
         </div>))}
-      {/* {
-              layer.ingredients.map((ingredient, index) => (
-                <input
-                  type='button'
-                  key={index}
-                  id={index}
-                  name='ingredient'
-                  value={ingredient.ingredientName}
-                  ingredient={ingredient.ingredientName}
-                >
-            ))} */}
-      {/* <div className='cake-preview'>
-        {cakeLayers.map((layer) => (
-          // <CakeLayer key={layer.name}
-          //   layer={layer}
-          // />
-          
-        ))}
-      </div> */}
+
+
+      <CakePreviewContainer>
+        <CakeLayerPreview>
+          <h4>Topping</h4>
+          <CakeLayer
+            backgroundColor='crimson'
+            ingredientName='raspberries'
+          />
+        </CakeLayerPreview>
+      </CakePreviewContainer>
+
+      <CakePreviewContainer>
+        <CakeLayerPreview>
+          <h4>Coating</h4>
+          <CakeLayer
+            backgroundColor='pink'
+            ingredientName='icing'
+          />
+        </CakeLayerPreview>
+      </CakePreviewContainer>
+
+      <CakePreviewContainer>
+        <CakeLayerPreview>
+          <h4>Sponge</h4>
+          <CakeLayer
+            backgroundColor='beige'
+            ingredientName='cake'
+          />
+        </CakeLayerPreview>
+      </CakePreviewContainer>
+
+      <CakePreviewContainer>
+        <CakeLayerPreview>
+          <h4>First Layer</h4>
+          <CakeLayer
+            backgroundColor='brown'
+            ingredientName='mousse'
+          />
+        </CakeLayerPreview>
+      </CakePreviewContainer>
+
+      <CakePreviewContainer>
+        <CakeLayerPreview>
+          <h4>Sponge</h4>
+          <CakeLayer
+            backgroundColor='beige'
+            ingredientName='cake'
+          />
+        </CakeLayerPreview>
+      </CakePreviewContainer>
+
+      <CakePreviewContainer>
+        <CakeLayerPreview>
+          <h4>Second Layer</h4>
+          <CakeLayer
+            backgroundColor='orange'
+            ingredientName='fruit'
+          />
+        </CakeLayerPreview>
+      </CakePreviewContainer>
+
+      <CakePreviewContainer>
+        <CakeLayerPreview>
+          <h4>Sponge</h4>
+          <CakeLayer
+            backgroundColor='beige'
+            ingredientName='cake'
+          />
+        </CakeLayerPreview>
+      </CakePreviewContainer>
+
+
+
     </div>
 
   )

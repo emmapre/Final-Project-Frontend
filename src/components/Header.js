@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
+import { Link, NavLink, useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { user, signout } from '../reducers/user'
 import styled from 'styled-components/macro'
 import { Button } from '../lib/Button'
+import cakelogo from '../assets/cakelogo.svg'
 
 const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   width: 100%;
-  height: 70px;
-  padding: 20px;
-  background-color: #713939;
+  height: 100px;
+  background-color: #FBC4C4;
+
 `
 
 const LogoTitleContainer = styled.div`
@@ -22,21 +22,56 @@ display: flex;
   align-items: center;
 `
 
-const Logo = styled.div`
+const Logo = styled.img`
   height: 50px;
   width: 50px;
-  background-color: #FBC4C4;
-`
-
-const Title = styled.h1`
   margin-left: 20px;
 `
 
-const MenuList = styled.ul`
+const StyledLink = styled(Link)`
+
+    color: #000;
+    text-decoration:none;
+  
+`
+
+const StyledNavLink = styled(NavLink)`
+    color: #000;
+    text-decoration:none;
+    &:hover{
+      text-decoration: underline;
+    }
+    &.active {
+      text-decoration: underline;
+  }
+  
+`
+
+const Title = styled.h1`
+  margin: 0 0 0 20px;
+  font-size: 40px;
+`
+
+const Navbar = styled.div`
+  display: none;
+ 
+
+  @media (min-width: 768px){
+    display: flex;
+    justify-content: space-around;
+    max-width: 50%;
+}
+  
+`
+
+const NavbarList = styled.ul`
   display: flex;
-  justify-content: space-between;
-  width: 40%;
+  align-items: center;
   list-style: none;
+
+  li{
+    margin-left:10px;
+  }
 `
 
 
@@ -51,32 +86,55 @@ export const Header = () => {
     }
   }, [signout]);
 
+  const accessToken = useSelector((store) => store.user.signin.accessToken);
 
   return (
     <StyledHeader>
-      <LogoTitleContainer>
-        <Logo />
-        <Link to='/'>
+
+
+      <StyledLink to='/'>
+        <LogoTitleContainer>
+          <Logo src={cakelogo} alt='cake logo' />
           <Title>CakeMaker</Title>
-        </Link>
-      </LogoTitleContainer>
-      <MenuList>
-        <Link to='/cakeMaker'><li>Maker</li></Link>
-        <Link to='/info'><li>Info</li></Link>
-        <Link to='/signup'><li>SignUp</li></Link>
-        <Link to='/signin'><li>SignIn</li></Link>
-        <Link to='/'>
-          <Button
-            buttonText='Sign out'
-            backgroundColor='#713939'
-            borderProperties='solid 2px #5D5D5D'
-            width='120px'
-            color='#fff'
-            onClick={(event) => dispatch(signout())}
-          />
-        </Link>
-      </ MenuList>
-    </StyledHeader>
+        </LogoTitleContainer>
+      </StyledLink>
+
+      <Navbar>
+        <NavbarList>
+          <StyledNavLink to='/cakeMaker'><li>Maker</li></StyledNavLink>
+          <StyledNavLink to='/latest'><li>Latest</li></StyledNavLink>
+          <StyledNavLink to='/info'><li>About</li></StyledNavLink>
+        </ NavbarList>
+        {!accessToken &&
+          <Link to='/signin'>
+            <Button
+              buttonText='Sign In'
+              backgroundColor='#9DBFA4'
+              borderProperties='solid 2px #5D5D5D'
+              width='90px'
+              fontFamily='Varela Round'
+            />
+          </Link>
+        }
+
+
+        {accessToken &&
+          <Link to='/'>
+            <Button
+              buttonText='Sign out'
+              backgroundColor='#F7E3B2'
+              borderProperties='solid 2px #5D5D5D'
+              width='90px'
+              fontFamily='Varela Round'
+              onClick={(event) => dispatch(signout())}
+            />
+          </Link>
+        }
+      </Navbar>
+
+
+
+    </StyledHeader >
   )
 }
 

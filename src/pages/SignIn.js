@@ -6,19 +6,20 @@ import { Button } from 'lib/Button'
 import styled from 'styled-components/macro'
 
 const Content = styled.div`
-  display: flex;
+display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 50vh;
+  max-width: 100vw;
+  /* height: 50vh;  */ 
   
   @media (min-width: 768px) {
-    width: 50vw;
-    height: 100vh;
+    width: 50%;
+   margin: auto;
+   
   }
 `
-const Title = styled.h1`
+const Title = styled.h2`
   color: #5D5D5D;
   font-family: 'Varela Round', sans-serif;
 `
@@ -32,8 +33,12 @@ const Label = styled.label`
   margin-bottom: 10px;
 `
 const Message = styled.p`
+  font-size: 14px;
   color: #5D5D5D;
   text-align: center;
+`
+const StyledLink = styled(Link)`
+    color: #5D5D5D;
 `
 
 export const SignIn = () => {
@@ -81,7 +86,7 @@ export const SignIn = () => {
         <div>
           <Button
             buttonText='Sign In'
-            backgroundColor='#F86AB0'
+            backgroundColor='#FBC4C4'
             color='#5D5D5D'
             borderProperties='solid 2px #5D5D5D'
             width='120px'
@@ -90,7 +95,7 @@ export const SignIn = () => {
           <Link to='/'>
             <Button
               buttonText='Go back'
-              backgroundColor='#F8EAD7'
+              backgroundColor='#F7E3B2'
               borderProperties='solid 2px #5D5D5D'
               width='120px'
               color='#5D5D5D'
@@ -98,6 +103,7 @@ export const SignIn = () => {
             />
           </Link>
         </div>
+        <Message>No account yet? <StyledLink to='/signup'>Go to the sign up page.</StyledLink></Message>
         {errorMessage && <Message> {`${errorMessage}`}</Message>}
       </Form>
     </Content>

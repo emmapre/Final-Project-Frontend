@@ -5,15 +5,20 @@ const StyledButton = styled.button`
   min-width: 64px;
   min-height: 36px;
   width: ${props => props.width};
+  height: ${props => props.height};
   padding: 0 16px 0 16px;
   border-radius: 3px;
   background-color: ${props => props.background};
   border: ${props => props.border};
-  color: {
-    ${props => props.color} : 'white'
-  }
+  color: 
+    ${props => props.color || '#000'};
   margin: 20px;
   font-family: ${props => props.fontFamily};
+  font-size: ${props => props.fontSize};
+
+  &:hover{
+    cursor: pointer;
+  }
 `
 
 const Icon = styled.span`
@@ -29,7 +34,9 @@ export const Button = ({
   textColor,
   borderProperties,
   width,
-  fontFamily
+  height,
+  fontFamily,
+  fontSize
 }) => {
   return (
     < StyledButton
@@ -37,8 +44,10 @@ export const Button = ({
       background={backgroundColor}
       border={borderProperties}
       width={width}
+      height={height}
       color={textColor}
       fontFamily={fontFamily}
+      fontSize={fontSize}
     >
       {icon && <Icon>{icon}</Icon>
       }

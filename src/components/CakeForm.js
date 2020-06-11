@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { Button } from '../lib/Button'
 import { fetchLayerIngredients, layers } from '../reducers/layers'
-import { cake } from '../reducers/cake'
+import { cakeOrder } from '../reducers/cakeOrder'
 import { CakePreview } from '../components/CakePreview'
 // import { Select } from '../lib/Select'
+
+
+const CakeMakerContainer = styled.div`
+display: flex;
+justify-content: center;
+`
 
 const CakeFormContainer = styled.form`
   display: flex;
   flex-direction: column;
   background-color: #C9E0DC;
+`
+
+const Message = styled.p`
+ font-size: 14px;
+  color: #5D5D5D;
+  text-align: center;
 `
 
 export const CakeForm = () => {
@@ -27,6 +40,8 @@ export const CakeForm = () => {
     (store) => store.layers.layerIngredients
   )
 
+  const accessToken = useSelector((store) => store.user.signin.accessToken);
+
 
   const [topping, setTopping] = useState('')
   const [cover, setCover] = useState('')
@@ -36,8 +51,8 @@ export const CakeForm = () => {
 
 
   return (
-    <>
-
+    <CakeMakerContainer>
+      <CakePreview />
       <CakeFormContainer>
 
         {layers.map((layer) => (
@@ -52,26 +67,25 @@ export const CakeForm = () => {
                   name='ingredient'
                   value={ingredient.ingredientName}
                   ingredient={ingredient.ingredientName}
-                  onClick={() => dispatch(cake.actions.addLayerIngredient({ layerName: layer.name, ingredientName: layer.ingredients.ingredientName, ingredientColor: layer.ingredients.ingredientColor }))}
+                  onClick={() => dispatch(cakeOrder.actions.addLayerIngredient({ layerName: layer.name, ingredientName: ingredient.ingredientName, ingredientColor: ingredient.ingredientColor }))}
                 >
                 </input>
               ))
             }
 
             <select
-              onChange={() => dispatch(cake.actions.addLayerIngredient({ layerName: layer.name, ingredientName: layer.ingredients.ingredientName, ingredientColor: layer.ingredients.ingredientColor }))
+              onChange={() => dispatch(cakeOrder.actions.addLayerIngredient({ layerName: layer.name, ingredientName: layer.ingredient.ingredientName, ingredientColor: layer.ingredient.ingredientColor }))
               } >
-              {
-                layer.ingredients.map((ingredient) => (
-                  <option
-                    key={ingredient._id}
-                    id={ingredient._id}
-                    name='ingredient'
-                    value={ingredient.ingredientName}
-                    ingredient={ingredient.ingredientName}
-                  >{ingredient.ingredientName}
-                  </option>
-                ))
+              {layer.ingredients.map((ingredient) => (
+                <option
+                  key={ingredient._id}
+                  id={ingredient._id}
+                  name='ingredient'
+                  value={ingredient.ingredientName}
+                  ingredient={ingredient.ingredientName}
+                >{ingredient.ingredientName}
+                </option>
+              ))
               }
             </select>
           </label>
@@ -82,16 +96,35 @@ export const CakeForm = () => {
           Name your cake
             <input type='text' id='cakename' name='cakename' />
         </label> */}
-        < Button
-          buttonText='Order Cake'
-          backgroundColor='#713939'
-          borderProperties='solid 2px #5D5D5D'
-          width='120px'
-          textColor='#fff'
-        />
+        {!accessToken &&
+          <div>
+            <Message>Please sign up or sign in to order.</Message>
+            <Message>No account yet? <Link to='/signup'>Go to the sign up page.</Link></Message>
+            <Link to='/signin'>
+              <Button
+                buttonText='Sign In'
+                backgroundColor='#C9E0DC'
+                color='#5D5D5D'
+                borderProperties='solid 2px #5D5D5D'
+                width='120px'
+                fontFamily='"Varela Round", sans-serif'
+              />
+            </Link>
+          </div>
+        }
+        {accessToken &&
+          < Button
+            buttonText='Order Cake'
+            backgroundColor='#713939'
+            borderProperties='solid 2px #5D5D5D'
+            width='120px'
+            textColor='#fff'
+          />
+        }
+
       </CakeFormContainer>
-      <CakePreview />
-    </>
+
+    </CakeMakerContainer>
   )
 
 }
