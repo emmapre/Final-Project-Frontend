@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
 import { CakeLayer } from '../lib/CakeLayer'
+import { ToppingLayer } from '../lib/ToppingLayer'
 import { layers } from '../reducers/layers'
 import { cakeOrder } from '../reducers/cakeOrder'
 import { generatePath } from 'react-router'
@@ -13,6 +14,7 @@ const CakePreviewContainer = styled.div`
   align-items: stretch;
   flex-direction: column;
   width: 400px;
+  margin-right: 20px;
 
     h4{
       margin: 0;
@@ -30,96 +32,102 @@ export const CakePreview = () => {
     (store) => store.cakeOrder.chosenIngredients
   )
 
+
+  // const chosenIngredientTopping = useSelector(
+  //   (store) => store.cakeOrder.chosenIngredients[0]
+  // )
+
+  const topping = chosenIngredients[0]
+  const coating = chosenIngredients[1]
+  const firstFilling = chosenIngredients[2]
+  const secondFilling = chosenIngredients[3]
+  const sponge = chosenIngredients[4]
+
   return (
     <div>
 
       <h1>Your cake</h1>
 
-      {chosenIngredients.map((layer) => (
-        <div>
-          <h4 key={layer._id}>
+      {/* {chosenIngredients.map((layer, index) => (
+        <div key={layer.index}>
+          <h4 key={layer.index}>
             {layer.layerName}
           </h4>
+          <p>{layer.ingredientName}</p>
           <CakeLayer
             backgroundColor={layer.ingredientColor}
             ingredientName={layer.ingredientName}
           />
-        </div>))}
+        </div>))} */}
 
 
       <CakePreviewContainer>
         <CakeLayerPreview>
           <h4>Topping</h4>
-          <CakeLayer
-            backgroundColor='crimson'
-            ingredientName='raspberries'
+          <ToppingLayer
+            backgroundColor={topping ? topping.ingredientColor : 'gray'}
+            ingredientName={topping ? topping.ingredientName : '-'}
           />
         </CakeLayerPreview>
-      </CakePreviewContainer>
 
-      <CakePreviewContainer>
+
+
         <CakeLayerPreview>
           <h4>Coating</h4>
           <CakeLayer
-            backgroundColor='pink'
-            ingredientName='icing'
+            height='20px'
+            backgroundColor={coating ? coating.ingredientColor : 'gray'}
+            ingredientName={coating ? coating.ingredientName : '-'}
           />
         </CakeLayerPreview>
-      </CakePreviewContainer>
 
-      <CakePreviewContainer>
         <CakeLayerPreview>
           <h4>Sponge</h4>
           <CakeLayer
-            backgroundColor='beige'
-            ingredientName='cake'
+            height='50px'
+            backgroundColor={sponge ? sponge.ingredientColor : 'gray'}
+            ingredientName={sponge ? sponge.ingredientName : '-'}
           />
         </CakeLayerPreview>
-      </CakePreviewContainer>
 
-      <CakePreviewContainer>
         <CakeLayerPreview>
-          <h4>First Layer</h4>
+          <h4>First Filling</h4>
           <CakeLayer
-            backgroundColor='brown'
-            ingredientName='mousse'
+            height='30px'
+            backgroundColor={firstFilling ? firstFilling.ingredientColor : 'gray'}
+            ingredientName={firstFilling ? firstFilling.ingredientName : '-'}
           />
         </CakeLayerPreview>
-      </CakePreviewContainer>
 
-      <CakePreviewContainer>
         <CakeLayerPreview>
           <h4>Sponge</h4>
           <CakeLayer
-            backgroundColor='beige'
-            ingredientName='cake'
+            height='50px'
+            backgroundColor={sponge ? sponge.ingredientColor : 'gray'}
+            ingredientName={sponge ? sponge.ingredientName : '-'}
           />
         </CakeLayerPreview>
-      </CakePreviewContainer>
 
-      <CakePreviewContainer>
         <CakeLayerPreview>
-          <h4>Second Layer</h4>
+          <h4>Second Filling</h4>
           <CakeLayer
-            backgroundColor='orange'
-            ingredientName='fruit'
+            height='30px'
+            backgroundColor={secondFilling ? secondFilling.ingredientColor : 'gray'}
+            ingredientName={secondFilling ? secondFilling.ingredientName : '-'}
           />
         </CakeLayerPreview>
-      </CakePreviewContainer>
 
-      <CakePreviewContainer>
         <CakeLayerPreview>
           <h4>Sponge</h4>
           <CakeLayer
-            backgroundColor='beige'
-            ingredientName='cake'
+            height='50px'
+            backgroundColor={sponge ? sponge.ingredientColor : 'gray'}
+            ingredientName={sponge ? sponge.ingredientName : '-'}
           />
         </CakeLayerPreview>
       </CakePreviewContainer>
 
-
-
-    </div>
+    </div >
 
   )
 }

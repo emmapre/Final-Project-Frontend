@@ -25,37 +25,29 @@ const Message = styled.p`
   color: #5D5D5D;
   text-align: center;
 `
+const IngredientButton = styled(Button)`
+
+`
 
 export const CakeForm = () => {
   const dispatch = useDispatch()
-
 
   useEffect(() => {
     console.log("useEffect")
     dispatch(fetchLayerIngredients())
   }, [dispatch])
 
-  // den här gör så att mappingen funkar, förstör inte!!
   const layers = useSelector(
     (store) => store.layers.layerIngredients
   )
 
   const accessToken = useSelector((store) => store.user.signin.accessToken);
 
-
-  const [topping, setTopping] = useState('')
-  const [cover, setCover] = useState('')
-  const [firstLayer, setFirstLayer] = useState('')
-  const [secondLayer, setSecondLayer] = useState('')
-  const [sponge, setSponge] = useState('')
-
-
   return (
     <CakeMakerContainer>
       <CakePreview />
       <CakeFormContainer>
-
-        {layers.map((layer) => (
+        {layers.map((layer, index) => (
           <label key={layer._id}>
             {layer.name}
             {
@@ -67,14 +59,14 @@ export const CakeForm = () => {
                   name='ingredient'
                   value={ingredient.ingredientName}
                   ingredient={ingredient.ingredientName}
-                  onClick={() => dispatch(cakeOrder.actions.addLayerIngredient({ layerName: layer.name, ingredientName: ingredient.ingredientName, ingredientColor: ingredient.ingredientColor }))}
+                  onClick={() => dispatch(cakeOrder.actions.setLayerIngredient({ layerIndex: index, layerName: layer.name, ingredientName: ingredient.ingredientName, ingredientColor: ingredient.ingredientColor }))}
                 >
                 </input>
               ))
             }
 
             <select
-              onChange={() => dispatch(cakeOrder.actions.addLayerIngredient({ layerName: layer.name, ingredientName: layer.ingredient.ingredientName, ingredientColor: layer.ingredient.ingredientColor }))
+              onChange={(e) => dispatch(cakeOrder.actions.setLayerIngredient({ layerIndex: index, layerName: layer.name, ingredientName: e.target.value, ingredientColor: e.target.ingredientColor }))
               } >
               {layer.ingredients.map((ingredient) => (
                 <option
@@ -83,7 +75,9 @@ export const CakeForm = () => {
                   name='ingredient'
                   value={ingredient.ingredientName}
                   ingredient={ingredient.ingredientName}
-                >{ingredient.ingredientName}
+                  ingredientColor={ingredient.ingredientColor}
+                >
+                  {ingredient.ingredientName}
                 </option>
               ))
               }

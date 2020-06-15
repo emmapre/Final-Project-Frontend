@@ -11,6 +11,7 @@ import { LandingPage } from './pages/LandingPage'
 import { SignUp } from './pages/SignUp'
 import { SignIn } from './pages/SignIn'
 import { InfoPage } from './pages/InfoPage'
+import { Latest } from './pages/Latest'
 
 import { Header } from './components/Header'
 import { CakeForm } from './components/CakeForm'
@@ -38,6 +39,9 @@ export const App = () => {
           </Route>
           <Route path='/cakemaker' exact>
             <CakeForm />
+          </Route>
+          <Route path='/latest' exact>
+            <Latest />
           </Route>
           <Route path='/info' exact>
             <InfoPage />

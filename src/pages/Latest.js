@@ -2,20 +2,20 @@ import React from 'react'
 import styled from 'styled-components/macro'
 
 const Content = styled.div`
-  display: flex;
+ display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 50vh;
+  max-width: 100vw;
+  /* height: 50vh;  */ 
   
   @media (min-width: 768px) {
-    width: 50vw;
-    height: 100vh;
-  }
+    width: 50%;
+   margin: auto;
+   
 `
 
-export const InfoPage = () => {
+export const Latest = () => {
 
   return (
     <Content>

@@ -1,50 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-
 export const cakeOrder = createSlice({
   name: 'cakeOrder',
   initialState: {
-    chosenIngredients: [
-      //   //   {
-      //   //   topping: {
-      //   //     ingredientName: '',
-      //   //     ingredientColor: ''
-      //   //   }
-      //   //   ,
-      //   //   coating: {
-      //   //     ingredientName: '',
-      //   //     ingredientColor: ''
-      //   //   },
-      //   //   firstLayer: {
-      //   //     ingredientName: '',
-      //   //     ingredientColor: ''
-      //   //   },
-      //   //   secondLayer: {
-      //   //     ingredientName: '',
-      //   //     ingredientColor: ''
-      //   //   },
-      //   //   sponge: {
-      //   //     ingredientName: '',
-      //   //     ingredientColor: ''
-      //   //   }
-
-      //   // }
-    ]
+    //makes an array that can contain 5 items
+    chosenIngredients: new Array(5)
   },
+
   reducers: {
-
-    addLayerIngredient: (state, action) => {
+    setLayerIngredient: (state, action) => {
       console.log(action)
-      const existingLayer = state.chosenIngredients.find((chosenIngredients) => chosenIngredients.layerName === action.payload.layerName)
-
-      // state.chosenIngredients.push({ ...action.payload })
-
-      if (existingLayer) {
-        // state.existingLayer.filter((existinglayer => existingLayer.existingLayer === existingLayer.layerName))
-        state.existingLayer.push({ ...action.payload })
-      } else {
-        state.chosenIngredients.push({ ...action.payload })
-      }
+      // i chosenIngredients på payloadens layerIndex kommer den fulla payloaden skjutas in
+      state.chosenIngredients[action.payload.layerIndex] = action.payload
     }
   }
 })
