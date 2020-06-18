@@ -4,6 +4,8 @@ const initialState = {
   signin: {
     accessToken: null,
     userId: 0,
+    name: null,
+    email: null,
     statusMessage: '',
     errorMessage: null,
   }
@@ -34,11 +36,16 @@ export const user = createSlice({
       console.log(`Error Message: ${errorMessage}`)
       state.signin.errorMessage = errorMessage
     },
-    // setIsSignedIn: (state, action) => {
-    //   const { isSignedIn } = action.payload;
-    //   state.login.isSignedIn = isSignedIn;
-    //   localStorage.setItem("isSignedIn", JSON.stringify(isSignedIn));
-    // },
+    setName: (state, action) => {
+      const { name } = action.payload
+      console.log(`Name: ${name}`)
+      state.signin.name = name
+    },
+    setEmail: (state, action) => {
+      const { email } = action.payload
+      console.log(`Email: ${email}`)
+      state.signin.email = email
+    },
   }
 
 })
@@ -67,6 +74,7 @@ export const signup = (name, email, password) => {
         dispatch(user.actions.setStatusMessage({ statusMessage: `Registry done for ${user.name}.` }))
         dispatch(user.action.setUserId({ userId: json._id }))
         // dispatch(user.action.setEmail({ email: json.email }))
+        // dispatch(user.action.setName({ name: json.name }))
       })
       .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }))
@@ -97,12 +105,12 @@ export const signin = (email, password) => {
             accessToken: json.accessToken
           })
         )
-        dispatch(
-          user.actions.setUserId({
-            userId: json.userId
-          })
-        )
+        dispatch(user.actions.setStatusMessage({ statusMessage: `${user.name} is signed in.` }))
+        dispatch(user.actions.setUserId({ userId: json.userId }))
+        dispatch(user.actions.setName({ userId: json.name }))
+        dispatch(user.actions.setEmail({ userId: json.email }))
       })
+
       .catch((err) => {
         // dispatch(user.actions.signout())
         dispatch(user.actions.setErrorMessage({ errorMessage: err }))

@@ -5,10 +5,10 @@ import styled, { css } from 'styled-components/macro'
 const CakeLayerIngredient = styled.div`
   /* height: ${props => props.height ? props.height : '50px'} */
   height: ${props => props.height};
-  width: 200px;
+  width:${props => props.width};
   border-radius: 5px;
   background-color: ${props => props.background};
-  margin: 5px 0 5px 0;
+  margin: ${props => props.margin};
   p{
     margin: 0;
   }
@@ -16,15 +16,19 @@ const CakeLayerIngredient = styled.div`
 
 export const CakeLayer = ({
   height,
+  width,
   ingredientName,
-  backgroundColor
+  backgroundColor,
+  margin
 }) => {
   return (
     <CakeLayerIngredient
       height={height}
+      width={width}
       background={backgroundColor}
+      margin={margin}
     >
-      {/* <p>{ingredientName}</p> */}
+      {/* {ingredientName && <p>{ingredientName}</p>} */}
     </CakeLayerIngredient>
   )
 }

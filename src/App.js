@@ -12,6 +12,9 @@ import { SignUp } from './pages/SignUp'
 import { SignIn } from './pages/SignIn'
 import { InfoPage } from './pages/InfoPage'
 import { Latest } from './pages/Latest'
+import { OrderPage } from './pages/OrderPage'
+import { CakeMakerPage } from './pages/CakeMakerPage'
+import { ConfirmationPage } from './pages/ConfirmationPage'
 
 import { Header } from './components/Header'
 import { CakeForm } from './components/CakeForm'
@@ -38,7 +41,7 @@ export const App = () => {
             <LandingPage />
           </Route>
           <Route path='/cakemaker' exact>
-            <CakeForm />
+            <CakeMakerPage />
           </Route>
           <Route path='/latest' exact>
             <Latest />
@@ -52,9 +55,15 @@ export const App = () => {
           <Route path='/signin' exact>
             <SignIn />
           </Route>
+          <Route path='/order' exact>
+            <OrderPage />
+          </Route>
+          <Route path='/confirmation' exact>
+            <ConfirmationPage />
+          </Route>
         </Switch>
       </BrowserRouter>
 
-    </Provider>
+    </Provider >
   )
 }

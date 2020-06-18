@@ -1,50 +1,54 @@
 import React from 'react'
-import useSelector from 'react-redux'
-
-import { layers } from '../reducers/layers'
-import { cakeOrder } from '../reducers/cakeOrder'
 import styled, { css } from 'styled-components/macro'
 
 
 const ToppingLayerIngredientContainer = styled.div`
   display: flex;
-  width: 200px;
+  width: ${props => props.width};
   justify-content: space-around;
   margin: 5px 0 5px 0;
 
 `
 
 const ToppingLayerIngredient = styled.div`
-  height: 30px;
-  width: 30px;
+  height: ${props => props.circleHeight};
+  width:${props => props.circleWidth};
   border-radius: 50%;
   background-color: ${props => props.background};
 
-  p{
-    margin: 0;
-  }
 `
 
 export const ToppingLayer = ({
   ingredientName,
-  backgroundColor
+  backgroundColor,
+  width,
+  circleWidth,
+  circleHeight
 }) => {
   return (
-    <ToppingLayerIngredientContainer>
+    <ToppingLayerIngredientContainer
+      width={width}
+    >
       <ToppingLayerIngredient
+        circleHeight={circleHeight}
+        circleWidth={circleWidth}
         background={backgroundColor}
       >
-        {/* <p>{ingredientName}</p> */}
+
       </ToppingLayerIngredient>
       <ToppingLayerIngredient
+        circleHeight={circleHeight}
+        circleWidth={circleWidth}
         background={backgroundColor}
       >
-        {/* <p>{ingredientName}</p> */}
+
       </ToppingLayerIngredient>
       <ToppingLayerIngredient
+        circleHeight={circleHeight}
+        circleWidth={circleWidth}
         background={backgroundColor}
       >
-        {/* <p>{ingredientName}</p> */}
+
       </ToppingLayerIngredient>
     </ToppingLayerIngredientContainer>
   )
