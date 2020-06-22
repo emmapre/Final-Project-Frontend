@@ -12,10 +12,15 @@ const Content = styled.div`
   align-items: center;
   max-width: 100vw;
   /* height: 50vh;  */ 
-  
+  h2{
+    color: #5D5D5D;
+    margin: 0 0 10px 0;
+  }
+
   @media (min-width: 768px) {
     width: 50%;
-   margin: auto;
+    margin: auto;
+    margin-top: 40px;
   }
 `
 
@@ -30,31 +35,29 @@ export const ConfirmationPage = () => {
 
   return (
     <Content>
-      <p>Cake order status</p>
       {accessToken && (
-        <Message>
+        <h2>
           Your order is placed. We will bake your cake as soon as possible!
-        </Message>
+        </h2>
       )}
       {!accessToken && (
-        <Message>
+        <h2>
           The cake is a lie.
-        </Message>
+        </h2>
       )}
 
-      <div>
-        <Message>Click the button to make more cakes.</Message>
-        <Link to='/cakemaker'>
-          <Button
-            buttonText='Cake Maker'
-            backgroundColor='#FBC4C4'
-            color='#5D5D5D'
-            borderProperties='solid 2px #5D5D5D'
-            width='120px'
-            fontFamily='"Varela Round", sans-serif'
-          />
-        </Link>
-      </div>
+      <Message>Click the button to make more cakes.</Message>
+      <Link to='/cakemaker'>
+        <Button
+          buttonText='Cake Maker'
+          backgroundColor='#FBC4C4'
+          color='#5D5D5D'
+          borderProperties='solid 2px #5D5D5D'
+          width='120px'
+          fontFamily='"Varela Round", sans-serif'
+        />
+      </Link>
+
     </Content>
   )
 }

@@ -44,8 +44,9 @@ const StyledLink = styled(Link)`
 export const SignUp = () => {
   const dispatch = useDispatch();
   const history = useHistory()
-  const errorMessage = useSelector((store) => store.user.signin.errorMessage);
-  const statusMessage = useSelector((store) => store.user.signin.statusMessage);
+  const errorMessage = useSelector((store) => store.user.signin.errorMessage)
+  const statusMessage = useSelector((store) => store.user.signin.statusMessage)
+  const accessToken = useSelector((store) => store.user.signin.accessToken)
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -61,10 +62,10 @@ export const SignUp = () => {
   }
 
   useEffect(() => {
-    if (statusMessage) {
-      history.push('/signin')
+    if (accessToken) {
+      history.push('/')
     }
-  }, [statusMessage]);
+  }, [accessToken, history]);
 
 
   return (

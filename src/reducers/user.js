@@ -63,18 +63,16 @@ export const signup = (name, email, password) => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Unable to sign up, try another email.")
+          throw new Error('Unable to sign up, try another email.')
         }
         return res.json()
       })
       .then((json) => {
-        dispatch(user.actions.setAccessToken({
-          accessToken: json.accessToken
-        }))
+        dispatch(user.actions.setAccessToken({ accessToken: json.accessToken }))
+        dispatch(user.action.setUserId({ userId: json.user.userId }))
+        dispatch(user.action.setEmail({ email: json.user.email }))
+        dispatch(user.action.setName({ name: json.user.name }))
         dispatch(user.actions.setStatusMessage({ statusMessage: `Registry done for ${user.name}.` }))
-        dispatch(user.action.setUserId({ userId: json._id }))
-        // dispatch(user.action.setEmail({ email: json.email }))
-        // dispatch(user.action.setName({ name: json.name }))
       })
       .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }))
@@ -92,12 +90,11 @@ export const signin = (email, password) => {
       headers: { 'Content-Type': 'application/json' }
     })
       .then((res) => {
-        //if the status code starts with a 2 then we show the json
         if (res.ok) {
           return res.json()
         }
         //Not Ok
-        throw new Error("Unable to sign in. Please check your username and password.")
+        throw new Error('Unable to sign in. Please check your username and password.')
       })
       .then((json) => {
         dispatch(
@@ -105,44 +102,18 @@ export const signin = (email, password) => {
             accessToken: json.accessToken
           })
         )
-        dispatch(user.actions.setStatusMessage({ statusMessage: `${user.name} is signed in.` }))
         dispatch(user.actions.setUserId({ userId: json.userId }))
         dispatch(user.actions.setName({ userId: json.name }))
         dispatch(user.actions.setEmail({ userId: json.email }))
       })
 
       .catch((err) => {
-        // dispatch(user.actions.signout())
+        dispatch(user.actions.setAccessToken({ accessToken: null }))
+        dispatch(user.actions.setUserId({ userId: 0 }))
         dispatch(user.actions.setErrorMessage({ errorMessage: err }))
       })
   }
 }
-
-// SECRET THUNK
-// export const getPreviousCakeOrders = () => {
-//   const USERS_URL = 'http://localhost:8087/users'
-//   return (dispatch, getState) => {
-//     const accessToken = getState().user.signin.accessToken
-//     const userId = getState().user.signin.userId
-//     fetch(`${USERS_URL}/${userId}/previousCakeOrders`, {
-//       method: 'GET',
-//       headers: { Authorization: accessToken }
-//     })
-//       .then((res) => {
-//         if (res.ok) {
-//           return res.json()
-//         }
-//         throw 'Could not access this site. Try signing in.'
-//       })
-//       .then((json) => {
-//         dispatch(
-//           //här kan den komma åt något i json
-//           user.actions.setPreviousCakeOrders({ previousCakeOrders: JSON.stringify(json) })
-//         )
-//       })
-//     dispatch(user.actions.setErrorMessage({ errorMessage: err }))
-//   }
-// }
 
 //SIGN OUT THUNK
 export const signout = () => {

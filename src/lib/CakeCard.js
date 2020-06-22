@@ -7,10 +7,8 @@ const StyledCard = styled.article`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 64px;
-  min-height: 36px;
-  width: ${props => props.width};
-  height: ${props => props.height};
+  width: 150px;
+  height: 200px;
   padding: 0 16px 0 16px;
   border-radius: 3px;
   border: 2px solid #5D5D5D;
@@ -19,6 +17,13 @@ const StyledCard = styled.article`
   margin: 20px;
   font-family: ${props => props.fontFamily};
   font-size: ${props => props.fontSize};
+`
+
+const Message = styled.p`
+background-color: #C9E0DC;
+  font-size: 14px;
+  color: #5D5D5D;
+  text-align: center;
 `
 
 export const CakeCard = ({
@@ -116,7 +121,7 @@ export const CakeCard = ({
       </CakeLayerPreviewContent> */}
 
 
-      <p>Created by: {userName}</p>
+      <Message>Ordered by: {userName}</Message>
     </StyledCard >
   )
 }

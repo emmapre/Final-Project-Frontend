@@ -4,8 +4,16 @@ import { CakeForm } from '../components/CakeForm'
 import styled from 'styled-components/macro'
 
 const CakeMakerContainer = styled.div`
-display: flex;
-justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    margin-top: 40px;
+  }
+
 `
 
 export const CakeMakerPage = () => {

@@ -4,8 +4,15 @@ import { OrderForm } from '../components/OrderForm'
 import styled from 'styled-components/macro'
 
 const OrderContainer = styled.div`
-display: flex;
-justify-content: center;
+ display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    margin-top: 40px;
+  }
 `
 
 export const OrderPage = () => {

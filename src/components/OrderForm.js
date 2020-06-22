@@ -7,17 +7,34 @@ import { submitCakeOrder } from '../reducers/cakeOrder'
 
 const OrderFormContainer = styled.form`
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   background-color: #C9E0DC;
-`
+  width: 100vw;
+  height: 400px;
+  h2{
+    color: #5D5D5D;
+    margin: 0 0 10px 0;
+  }
 
+   @media (min-width: 768px) {
+    max-width: 400px;
+  }
+`
 const Message = styled.p`
-  font-size: 14px;
+ font-size: 14px;
   color: #5D5D5D;
   text-align: center;
+  margin: 3px;
 `
 
 const SignContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+const SubmitContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,22 +46,22 @@ export const OrderForm = () => {
   const history = useHistory()
   const dispatch = useDispatch()
 
+  // const errorMessage = useSelector((store) => store.cakeOrder.submitCakeOrder.errorMessage);
+  // const statusMessage = useSelector((store) => store.cakeOrder.submitCakeOrder.statusMessage);
   const accessToken = useSelector((store) => store.user.signin.accessToken)
 
   const userId = useSelector((store) => store.user.signin.userId)
-  const name = useSelector((store) => store.user.signin.name)
 
-  const cakeOrder = useSelector((store) => store.cakeOrder.chosenIngredients)
+  const chosenIngredients = useSelector((store) => store.cakeOrder.chosenIngredients)
 
 
   const handleSubmit = (event) => {
     event.preventDefault()
     dispatch(submitCakeOrder(
-
-      cakeOrder,
+      chosenIngredients,
       userId,
       accessToken))
-    history.push('/confirmationPage')
+    history.push('/confirmation')
   }
 
 
@@ -52,31 +69,36 @@ export const OrderForm = () => {
     <div>
 
       {accessToken && (
-        <>
-          {/* <CakePreview /> */}
-          <OrderFormContainer>
-
-            <p>{name}</p>
-            {/* <p>{cakeOrder}</p> */}
-            {/* <p>{cakeOrder}</p> */}
-
+        <OrderFormContainer>
+          <h2>This is your cake:</h2>
+          {chosenIngredients.map((ingredient) => (
+            <Message
+              key={ingredient.layerName}
+            >{ingredient.layerName}: {ingredient.ingredientSpecs.ingredientName}</Message>
+          ))}
+          <SubmitContainer>
             <Link to='/cakemaker'>
               <Button
                 buttonText='Change Order'
                 backgroundColor='#F7E3B2'
                 borderProperties='solid 2px #5D5D5D'
                 width='120px'
+                fontFamily='"Varela Round", sans-serif'
               />
             </Link>
             <Button
+              type='submit'
               buttonText='Place your Order'
               backgroundColor='#FBC4C4'
               borderProperties='solid 2px #5D5D5D'
               width='120px'
+              fontFamily='"Varela Round", sans-serif'
               onClick={handleSubmit}
             />
-          </OrderFormContainer >
-        </>
+          </SubmitContainer>
+          {/* {statusMessage && <Message> {`${statusMessage}`}</Message>}
+          {errorMessage && <Message> {`${errorMessage}`}</Message>} */}
+        </OrderFormContainer >
       )}
 
       {!accessToken && (
@@ -106,7 +128,6 @@ export const OrderForm = () => {
               />
             </Link>
           </SignContainer>
-
         </OrderFormContainer>
       )}
 

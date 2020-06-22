@@ -16,6 +16,11 @@ export const cakeOrder = createSlice({
       // i chosenIngredients på payloadens layerIndex kommer den fulla payloaden skjutas in
       state.chosenIngredients[action.payload.layerIndex] = action.payload
     },
+    setErrorMessage: (state, action) => {
+      const { errorMessage } = action.payload
+      console.log(`Error Message: ${errorMessage}`)
+      state.signin.errorMessage = errorMessage
+    },
     clearCake: () => {
       return initialState
     }
@@ -43,6 +48,9 @@ export const submitCakeOrder = (
     })
       .then(() => {
         dispatch(cakeOrder.actions.clearCake())
+      })
+      .catch((err) => {
+        dispatch(cakeOrder.actions.setErrorMessage({ errorMessage: err }))
       })
   }
 }

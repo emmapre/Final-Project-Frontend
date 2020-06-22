@@ -4,16 +4,36 @@ import styled from 'styled-components/macro'
 import { CakeLayer } from '../lib/CakeLayer'
 import { ToppingLayer } from '../lib/ToppingLayer'
 
+
+const CakePreviewWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+  height: 400px;
+  h2{
+    color: #5D5D5D;
+  }
+  @media (min-width: 768px) {
+    min-width: 400px;
+    margin-bottom: 0px;
+
+    h2{
+      display: none;
+    }
+  }
+`
 const CakePreviewContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: stretch;
   flex-direction: column;
-  width: 400px;
-  margin-right: 20px;
+  max-width: 400px;
 
     h4{
       margin: 0;
+      font-size: 14px;
     }
 `
 
@@ -24,13 +44,13 @@ const CakeLayerPreview = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 340px;
 `
 
 export const CakePreview = () => {
 
   const chosenIngredients = useSelector(
-    (store) => store.cakeOrder.chosenIngredients
-  )
+    (store) => store.cakeOrder.chosenIngredients)
 
   const topping = chosenIngredients[0]
   const coating = chosenIngredients[1]
@@ -39,10 +59,8 @@ export const CakePreview = () => {
   const secondFilling = chosenIngredients[4]
 
   return (
-    <div>
-
-      <h1>Your cake</h1>
-
+    <CakePreviewWrapper>
+      <h2>Your cake</h2>
       <CakePreviewContainer>
         <CakeLayerPreviewContent>
           <CakeLayerPreview>
@@ -124,8 +142,7 @@ export const CakePreview = () => {
           />
         </CakeLayerPreview>
       </CakePreviewContainer>
-
-    </div >
+    </CakePreviewWrapper>
 
   )
 }
