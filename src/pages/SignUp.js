@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { user, signup } from '../reducers/user'
+import { signup } from '../reducers/user'
 import { Button } from 'lib/Button'
 import styled from 'styled-components/macro'
 
@@ -44,7 +44,6 @@ const StyledLink = styled(Link)`
 export const SignUp = () => {
   const dispatch = useDispatch();
   const history = useHistory()
-  // const accessToken = useSelector((store) => store.user.signin.accessToken);
   const errorMessage = useSelector((store) => store.user.signin.errorMessage);
   const statusMessage = useSelector((store) => store.user.signin.statusMessage);
   const [name, setName] = useState('');

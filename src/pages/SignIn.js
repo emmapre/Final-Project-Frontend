@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { user, signin } from '../reducers/user'
+import { signin } from '../reducers/user'
 import { Button } from 'lib/Button'
 import styled from 'styled-components/macro'
 

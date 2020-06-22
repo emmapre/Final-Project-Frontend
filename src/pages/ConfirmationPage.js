@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { Button } from '../lib/Button'
-import { fetchLayerIngredients } from '../reducers/layers'
-import { cakeOrder } from '../reducers/cakeOrder'
-import { signin } from '../reducers/user'
+
 
 const Content = styled.div`
  display: flex;
@@ -28,12 +26,12 @@ const Message = styled.p`
 `
 
 export const ConfirmationPage = () => {
-  // const accessToken = useSelector((store) => store.user.signin.accessToken)
+  const accessToken = useSelector((store) => store.user.signin.accessToken)
 
   return (
     <Content>
       <p>Cake order status</p>
-      {/* {accessToken && (
+      {accessToken && (
         <Message>
           Your order is placed. We will bake your cake as soon as possible!
         </Message>
@@ -42,9 +40,7 @@ export const ConfirmationPage = () => {
         <Message>
           The cake is a lie.
         </Message>
-      )} */}
-
-
+      )}
 
       <div>
         <Message>Click the button to make more cakes.</Message>
@@ -59,9 +55,6 @@ export const ConfirmationPage = () => {
           />
         </Link>
       </div>
-
-
-
     </Content>
   )
 }

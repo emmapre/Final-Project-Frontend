@@ -16,7 +16,6 @@ export const cakeOrder = createSlice({
       // i chosenIngredients på payloadens layerIndex kommer den fulla payloaden skjutas in
       state.chosenIngredients[action.payload.layerIndex] = action.payload
     },
-
     clearCake: () => {
       return initialState
     }
@@ -25,11 +24,8 @@ export const cakeOrder = createSlice({
 
 
 export const submitCakeOrder = (
-
   chosenIngredients,
   userId,
-  // name,
-  // email,
   accessToken
 ) => {
   const SUBMIT_ORDER_URL = 'http://localhost:8087/cakeorders'
@@ -39,7 +35,6 @@ export const submitCakeOrder = (
       body: JSON.stringify({
         chosenIngredients,
         userId,
-        // email,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -53,14 +48,26 @@ export const submitCakeOrder = (
 }
 
 
+//FETCH PREVIOUS CAKES THUNK
+export const cakeOrders = createSlice({
+  name: 'cakeOrders',
+  initialState: {
+    allCakeOrders: []
+  },
+  reducers: {
+    setCakeOrders: (state, action) => {
+      state.allCakeOrders = action.payload
+    }
+  }
+})
+
 export const fetchCakeOrders = () => {
-  const CAKEORDER_URL = 'http://localhost:8087/cakeOrders'
   return (dispatch) => {
     dispatch(loading.actions.setLoading(true))
-    fetch(CAKEORDER_URL)
-      .then((res) => res.json())
+    fetch('http://localhost:8087/cakeorders')
+      .then(res => res.json())
       .then((json) => {
-        dispatch(cakeOrder.actions.setCakeOrders(json))
+        dispatch(cakeOrders.actions.setCakeOrders(json))
         dispatch(loading.actions.setLoading(false))
       })
   }

@@ -1,9 +1,8 @@
 import React from 'react'
-import styled, { css } from 'styled-components/macro'
+import styled from 'styled-components/macro'
 
 
 const CakeLayerIngredient = styled.div`
-  /* height: ${props => props.height ? props.height : '50px'} */
   height: ${props => props.height};
   width:${props => props.width};
   border-radius: 5px;

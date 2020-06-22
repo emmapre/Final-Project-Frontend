@@ -6,6 +6,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { user } from './reducers/user'
 import { cakeOrder } from './reducers/cakeOrder'
 import { layers } from './reducers/layers'
+import { previousCakeOrders } from './reducers/previousCakeOrders'
 
 import { LandingPage } from './pages/LandingPage'
 import { SignUp } from './pages/SignUp'
@@ -17,13 +18,12 @@ import { CakeMakerPage } from './pages/CakeMakerPage'
 import { ConfirmationPage } from './pages/ConfirmationPage'
 
 import { Header } from './components/Header'
-import { CakeForm } from './components/CakeForm'
-// import { OrderForm } from './components/OrderForm'
-import styled from 'styled-components/macro'
+// import styled from 'styled-components/macro'
 
 
 const reducer = combineReducers({
   cakeOrder: cakeOrder.reducer,
+  previousCakeOrders: previousCakeOrders.reducer,
   layers: layers.reducer,
   user: user.reducer,
 })

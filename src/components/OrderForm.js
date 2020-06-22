@@ -1,10 +1,8 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { CakePreview } from './CakePreview'
 import styled from 'styled-components/macro'
 import { Button } from '../lib/Button'
-import { cakeOrder } from '../reducers/cakeOrder'
 import { submitCakeOrder } from '../reducers/cakeOrder'
 
 const OrderFormContainer = styled.form`
@@ -25,6 +23,8 @@ const SignContainer = styled.div`
   align-items: center;
 `
 
+
+
 export const OrderForm = () => {
   const history = useHistory()
   const dispatch = useDispatch()
@@ -33,8 +33,6 @@ export const OrderForm = () => {
 
   const userId = useSelector((store) => store.user.signin.userId)
   const name = useSelector((store) => store.user.signin.name)
-  const email = useSelector((store) => store.user.signin.email)
-
 
   const cakeOrder = useSelector((store) => store.cakeOrder.chosenIngredients)
 
@@ -45,9 +43,6 @@ export const OrderForm = () => {
 
       cakeOrder,
       userId,
-
-      // name, 
-      // email, 
       accessToken))
     history.push('/confirmationPage')
   }

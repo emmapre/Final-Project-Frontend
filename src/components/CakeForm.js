@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
@@ -23,33 +23,18 @@ const Message = styled.p`
   color: #5D5D5D;
   text-align: center;
 `
-const IngredientButton = styled(Button)`
-
-`
 
 export const CakeForm = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    console.log("useEffect")
     dispatch(fetchLayerIngredients())
   }, [dispatch])
 
   const layers = useSelector(
-    (store) => store.layers.layerIngredients
-  )
+    (store) => store.layers.layerIngredients)
 
-  const accessToken = useSelector((store) => store.user.signin.accessToken);
-
-
-  const [layerIngredient, setLayerIngredient] = useState();
-
-  // layerIngredient &&
-  //   console.log("Name: " + layerIngredient.ingredientSpecs.ingredientName);
-  // layerIngredient &&
-  //   console.log("Color: " + layerIngredient.ingredientSpecs.ingredientColor);
-
-
+  const accessToken = useSelector((store) => store.user.signin.accessToken)
 
   return (
     <CakeMakerContainer>
@@ -58,16 +43,15 @@ export const CakeForm = () => {
           <label key={layer._id}>
             {layer.name}
             <select
+              defaultValue={'DEFAULT'}
               required
               onChange={e =>
                 dispatch(cakeOrder.actions.setLayerIngredient({
                   layerIndex: index, layerName: layer.name, ingredientSpecs: JSON.parse(e.target.value)
                 }))
-                // onChange={(e) => dispatch(cakeOrder.actions.setLayerIngredient({ layerIndex: index, layerName: layer.name, ingredientName: e.target.value, ingredientColor: e.target.value }))
               } >
               <option
-                value=''
-                selected
+                value='DEFAULT'
                 disabled
                 hidden
               >
@@ -78,9 +62,7 @@ export const CakeForm = () => {
                   key={ingredient._id}
                   id={ingredient._id}
                   name='ingredient'
-                  // value={ingredient.ingredientColor}
                   value={JSON.stringify(ingredient)}
-                  ingredientColor={ingredient.ingredientColor}
                 >
                   {ingredient.ingredientName}
                 </option>

@@ -2,8 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'lib/Button'
 import styled from 'styled-components/macro'
-import { fetchLayerIngredients, layers } from '../reducers/layers'
-import { useSelector, useDispatch } from 'react-redux'
 
 const Content = styled.div`
   display: flex;
@@ -45,7 +43,6 @@ const SignContainer = styled.div`
 `
 
 export const LandingPage = () => {
-  const dispatch = useDispatch()
 
   return (
     <Content>

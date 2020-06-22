@@ -53,8 +53,6 @@ export const CakePreview = () => {
               circleWidth='30px'
               backgroundColor={topping ? topping.ingredientSpecs.ingredientColor : 'gray'}
               ingredientName={topping ? topping.ingredientSpecs.ingredientName : '-'}
-
-
             />
           </CakeLayerPreview>
         </CakeLayerPreviewContent>

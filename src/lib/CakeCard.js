@@ -31,9 +31,19 @@ export const CakeCard = ({
   cakeName,
   toppingColor,
   toppingName,
+  coatingColor,
+  coatingName,
+  spongeColor,
+  spongeName,
+  firstFillingColor,
+  firstFillingName,
+  secondFillingColor,
+  secondFillingName,
   layerBackgroundColor,
   circleHeight,
-  circleWidth
+  circleWidth,
+  userName
+
 }) => {
   return (
     < StyledCard
@@ -58,43 +68,43 @@ export const CakeCard = ({
         circleWidth='15px'
       />
       <CakeLayer
-        backgroundColor={toppingColor}
-        ingredientName={toppingName}
+        backgroundColor={coatingColor}
+        ingredientName={coatingName}
         height='10px'
         width='100px'
         margin='2px 0'
       />
       <CakeLayer
-        backgroundColor={toppingColor}
-        ingredientName={toppingName}
+        backgroundColor={spongeColor}
+        ingredientName={spongeName}
         height='25px'
         width='100px'
         margin='2px 0'
       />
       <CakeLayer
-        backgroundColor={toppingColor}
-        ingredientName={toppingName}
+        backgroundColor={firstFillingColor}
+        ingredientName={firstFillingName}
         height='15px'
         width='100px'
         margin='2px 0'
       />
       <CakeLayer
-        backgroundColor={toppingColor}
-        ingredientName={toppingName}
+        backgroundColor={spongeColor}
+        ingredientName={spongeName}
         height='25px'
         width='100px'
         margin='2px 0'
       />
       <CakeLayer
-        backgroundColor={toppingColor}
-        ingredientName={toppingName}
+        backgroundColor={secondFillingColor}
+        ingredientName={secondFillingName}
         height='15px'
         width='100px'
         margin='2px 0'
       />
       <CakeLayer
-        backgroundColor={toppingColor}
-        ingredientName={toppingName}
+        backgroundColor={spongeColor}
+        ingredientName={spongeName}
         height='25px'
         width='100px'
         margin='2px 0'
@@ -106,7 +116,7 @@ export const CakeCard = ({
       </CakeLayerPreviewContent> */}
 
 
-      <p>Created by: *username*</p>
+      <p>Created by: {userName}</p>
     </StyledCard >
   )
 }

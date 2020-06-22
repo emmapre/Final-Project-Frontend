@@ -97,7 +97,7 @@ export const signin = (email, password) => {
           return res.json()
         }
         //Not Ok
-        throw "Unable to sign in. Please check your username and password."
+        throw new Error("Unable to sign in. Please check your username and password.")
       })
       .then((json) => {
         dispatch(

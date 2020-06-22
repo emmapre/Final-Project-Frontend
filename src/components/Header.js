@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link, NavLink, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { user, signout } from '../reducers/user'
+import { signout } from '../reducers/user'
 import styled from 'styled-components/macro'
 import { Button } from '../lib/Button'
 import cakelogo from '../assets/cakelogo.svg'

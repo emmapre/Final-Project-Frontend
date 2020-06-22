@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components/macro'
 import { CakeCard } from '../lib/CakeCard'
+import { fetchCakeOrders } from '../reducers/previousCakeOrders'
+
 
 const Content = styled.div`
  display: flex;
@@ -15,19 +18,43 @@ const Content = styled.div`
    margin: auto;
   }
 `
+const Message = styled.p`
+ font-size: 14px;
+  color: #5D5D5D;
+  text-align: center;
+`
 
 export const Latest = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    console.log("useEffect")
+    dispatch(fetchCakeOrders())
+  }, [dispatch])
+
+  const previousCakeOrders = useSelector(
+    (store) => store.previousCakeOrders.allCakeOrders)
 
   return (
     <Content>
-      <p>
+      <Message>
         The latest ordered cakes will show here.
-    </p>
+    </Message>
 
-      <CakeCard
-        toppingColor='green'
-      >
-      </CakeCard>
+
+      {previousCakeOrders.map((cakeOrder) => (
+        <CakeCard
+          key={cakeOrder._id}
+          toppingColor={cakeOrder.chosenIngredients[0] ? cakeOrder.chosenIngredients[0].ingredientSpecs.ingredientColor : 'gray'}
+          coatingColor={cakeOrder.chosenIngredients[1] ? cakeOrder.chosenIngredients[1].ingredientSpecs.ingredientColor : 'gray'}
+          spongeColor={cakeOrder.chosenIngredients[2] ? cakeOrder.chosenIngredients[2].ingredientSpecs.ingredientColor : 'gray'}
+          firstFillingColor={cakeOrder.chosenIngredients[3] ? cakeOrder.chosenIngredients[3].ingredientSpecs.ingredientColor : 'gray'}
+          secondFillingColor={cakeOrder.chosenIngredients[4] ? cakeOrder.chosenIngredients[4].ingredientSpecs.ingredientColor : 'gray'}
+          username={cakeOrder.userId ? cakeOrder.userId.name : 'Unknown'}
+        >
+        </CakeCard>
+
+      ))}
 
 
 
