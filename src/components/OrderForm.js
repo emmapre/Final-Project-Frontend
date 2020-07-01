@@ -2,58 +2,55 @@ import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components/macro'
-import { Button } from '../lib/Button'
 import { submitCakeOrder } from '../reducers/cakeOrder'
+import { Button } from '../lib/Button'
 
 const OrderFormContainer = styled.form`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex-direction: column;
   background-color: #C9E0DC;
   width: 100vw;
   height: 400px;
+
   h2{
     color: #5D5D5D;
     margin: 0 0 10px 0;
   }
 
-   @media (min-width: 768px) {
+  @media (min-width: 768px) {
     max-width: 400px;
   }
 `
 const Message = styled.p`
- font-size: 14px;
+  font-size: 14px;
   color: #5D5D5D;
   text-align: center;
-  margin: 3px;
+  margin: 5px;
 `
 
-const SignContainer = styled.div`
+const IngredientContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`
+
+const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `
-const SubmitContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-
 
 export const OrderForm = () => {
   const history = useHistory()
   const dispatch = useDispatch()
 
-  // const errorMessage = useSelector((store) => store.cakeOrder.submitCakeOrder.errorMessage);
-  // const statusMessage = useSelector((store) => store.cakeOrder.submitCakeOrder.statusMessage);
   const accessToken = useSelector((store) => store.user.signin.accessToken)
 
   const userId = useSelector((store) => store.user.signin.userId)
 
   const chosenIngredients = useSelector((store) => store.cakeOrder.chosenIngredients)
-
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -64,19 +61,20 @@ export const OrderForm = () => {
     history.push('/confirmation')
   }
 
-
   return (
     <div>
 
       {accessToken && (
         <OrderFormContainer>
           <h2>This is your cake:</h2>
-          {chosenIngredients.map((ingredient) => (
-            <Message
-              key={ingredient.layerName}
-            >{ingredient.layerName}: {ingredient.ingredientSpecs.ingredientName}</Message>
-          ))}
-          <SubmitContainer>
+          <IngredientContainer>
+            {chosenIngredients.map((ingredient) => (
+              <Message
+                key={ingredient.layerName}
+              >{ingredient.layerName}: {ingredient.ingredientSpecs.ingredientName}</Message>
+            ))}
+          </IngredientContainer>
+          <ButtonContainer>
             <Link to='/cakemaker'>
               <Button
                 buttonText='Change Order'
@@ -95,9 +93,7 @@ export const OrderForm = () => {
               fontFamily='"Varela Round", sans-serif'
               onClick={handleSubmit}
             />
-          </SubmitContainer>
-          {/* {statusMessage && <Message> {`${statusMessage}`}</Message>}
-          {errorMessage && <Message> {`${errorMessage}`}</Message>} */}
+          </ButtonContainer>
         </OrderFormContainer >
       )}
 
@@ -106,7 +102,7 @@ export const OrderForm = () => {
           <Message>
             You need to sign in to place an order.
           </Message>
-          <SignContainer>
+          <ButtonContainer>
             <Link to='/signup'>
               <Button
                 buttonText='Sign Up'
@@ -127,7 +123,7 @@ export const OrderForm = () => {
                 fontFamily='"Varela Round", sans-serif'
               />
             </Link>
-          </SignContainer>
+          </ButtonContainer>
         </OrderFormContainer>
       )}
 

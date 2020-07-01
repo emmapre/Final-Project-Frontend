@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import { Button } from '../lib/Button'
+import { BeatLoader } from 'react-spinners'
 import { fetchLayerIngredients } from '../reducers/layers'
 import { cakeOrder } from '../reducers/cakeOrder'
-
+import { Button } from '../lib/Button'
 
 const CakeMakerContainer = styled.div`
   display: flex;
@@ -15,7 +15,8 @@ const CakeMakerContainer = styled.div`
   background-color: #C9E0DC;
   width: 100vw;
   height: 400px;
-   @media (min-width: 768px) {
+
+  @media (min-width: 768px) {
     max-width: 400px;
   }
 `
@@ -43,28 +44,33 @@ const CakeFormContainer = styled.form`
 `
 
 const Message = styled.p`
- font-size: 14px;
+  font-size: 14px;
   color: #5D5D5D;
   text-align: center;
   margin: 3px;
 `
 
+const LoaderWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
+
 const Select = styled.select`
- border: 1px solid #5D5D5D;
- border-radius: 2px;
- font-family: "Raleway";
+  border: 1px solid #5D5D5D;
+  border-radius: 2px;
+  font-family: "Raleway";
 `
 
 const Option = styled.option`
-
 `
 
 const SubmitContainer = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 `
 
 export const CakeForm = () => {
@@ -75,30 +81,14 @@ export const CakeForm = () => {
     dispatch(fetchLayerIngredients())
   }, [dispatch])
 
-  const layers = useSelector(
-    (store) => store.layers.layerIngredients)
-
+  const layers = useSelector((store) => store.layers.layerIngredients)
   const accessToken = useSelector((store) => store.user.signin.accessToken)
+  const isLoading = useSelector((store) => store.ui.isLoading)
 
   const handleSubmit = (event) => {
     event.preventDefault()
     history.push('/order')
   }
-
-  // useEffect(() => {
-  //   if (handleSubmit) {
-  //     history.push('/order')
-  //   }
-  // })
-
-
-  // useEffect(() => {
-  //   if (accessToken) {
-  //     history.push('/cakemaker')
-  //   }
-  // }, [accessToken]);
-
-
 
   return (
     <CakeMakerContainer>
@@ -106,25 +96,32 @@ export const CakeForm = () => {
         onSubmit={handleSubmit}
       >
         <h2>Choose your ingredients</h2>
-        {layers.map((layer, index) => (
+
+        {isLoading && <LoaderWrapper>
+          <BeatLoader color='#5D5D5D' />
+        </LoaderWrapper>}
+
+
+
+        {!isLoading && layers.map((layer, index) => (
           <label key={layer._id}>
             {layer.name}
             <Select
-              defaultValue={'DEFAULT'}
               required
               onChange={e =>
                 dispatch(cakeOrder.actions.setLayerIngredient({
                   layerIndex: index, layerName: layer.name, ingredientSpecs: JSON.parse(e.target.value)
-                }))
-              } >
+                }))}>
+              {/* Using selected renders an error, value should be used when using React but then the validation did not work. */}
               <Option
-                value='DEFAULT'
-                // value={layer.ingredientSpecs ? layer.ingredientSpecs.ingredientName : 'DEFAULT'}
+                value=''
                 disabled
+                selected
                 hidden
               >
                 -{layer.name}-
                 </Option>
+
               {layer.ingredients.map((ingredient) => (
                 <Option
                   key={ingredient._id}
@@ -134,11 +131,12 @@ export const CakeForm = () => {
                 >
                   {ingredient.ingredientName}
                 </Option>
-              ))
-              }
+              ))}
+
             </Select>
           </label>
         ))}
+
         <SubmitContainer>
           {!accessToken &&
             <>
@@ -156,9 +154,10 @@ export const CakeForm = () => {
               </Link>
             </>
           }
+
           {accessToken &&
             < Button
-              type='Submit'
+              type='submit'
               buttonText='Order Cake'
               backgroundColor='#FBC4C4'
               borderProperties='solid 2px #5D5D5D'
@@ -166,9 +165,9 @@ export const CakeForm = () => {
               color='#5D5D5D'
             />
           }
+
         </SubmitContainer>
       </CakeFormContainer>
-
     </CakeMakerContainer >
   )
 }

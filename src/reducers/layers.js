@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { loading } from './loading'
+import { ui } from './ui'
 
 // FETCH LAYERDATA THUNK
 export const fetchLayerIngredients = () => {
-  const LAYER_URL = 'http://localhost:8087/layers'
+  const LAYER_URL = 'https://cakemaker-final-project.herokuapp.com/layers'
   return (dispatch) => {
-    dispatch(loading.actions.setLoading(true))
+    dispatch(ui.actions.setLoading(true))
     fetch(LAYER_URL)
       .then((res) => res.json())
       .then((json) => {
         dispatch(layers.actions.setLayers(json))
-        dispatch(loading.actions.setLoading(false))
+        dispatch(ui.actions.setLoading(false))
       })
   }
 }

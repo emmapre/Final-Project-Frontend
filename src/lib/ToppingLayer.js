@@ -1,13 +1,11 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
-
 const ToppingLayerIngredientContainer = styled.div`
   display: flex;
   width: ${props => props.width};
   justify-content: space-around;
   margin: 5px 0 5px 0;
-
 `
 
 const ToppingLayerIngredient = styled.div`
@@ -15,11 +13,9 @@ const ToppingLayerIngredient = styled.div`
   width:${props => props.circleWidth};
   border-radius: 50%;
   background-color: ${props => props.background};
-
 `
 
 export const ToppingLayer = ({
-  ingredientName,
   backgroundColor,
   width,
   circleWidth,

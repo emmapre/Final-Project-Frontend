@@ -4,7 +4,6 @@ import styled from 'styled-components/macro'
 import { CakeLayer } from '../lib/CakeLayer'
 import { ToppingLayer } from '../lib/ToppingLayer'
 
-
 const CakePreviewWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -12,9 +11,11 @@ const CakePreviewWrapper = styled.div`
   flex-direction: column;
   margin-bottom: 20px;
   height: 400px;
+
   h2{
     color: #5D5D5D;
   }
+
   @media (min-width: 768px) {
     min-width: 400px;
     margin-bottom: 0px;
@@ -24,6 +25,7 @@ const CakePreviewWrapper = styled.div`
     }
   }
 `
+
 const CakePreviewContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -35,9 +37,6 @@ const CakePreviewContainer = styled.div`
       margin: 0;
       font-size: 14px;
     }
-`
-
-const CakeLayerPreviewContent = styled.div`
 `
 
 const CakeLayerPreview = styled.div`
@@ -62,19 +61,17 @@ export const CakePreview = () => {
     <CakePreviewWrapper>
       <h2>Your cake</h2>
       <CakePreviewContainer>
-        <CakeLayerPreviewContent>
-          <CakeLayerPreview>
-            <h4>Topping</h4>
-            <ToppingLayer
-              width='200px'
-              circleHeight='30px'
-              circleWidth='30px'
-              backgroundColor={topping ? topping.ingredientSpecs.ingredientColor : 'gray'}
-              ingredientName={topping ? topping.ingredientSpecs.ingredientName : '-'}
-            />
-          </CakeLayerPreview>
-        </CakeLayerPreviewContent>
 
+        <CakeLayerPreview>
+          <h4>Topping</h4>
+          <ToppingLayer
+            width='200px'
+            circleHeight='30px'
+            circleWidth='30px'
+            backgroundColor={topping ? topping.ingredientSpecs.ingredientColor : 'gray'}
+            ingredientName={topping ? topping.ingredientSpecs.ingredientName : '-'}
+          />
+        </CakeLayerPreview>
 
         <CakeLayerPreview>
           <h4>Coating</h4>
@@ -141,6 +138,7 @@ export const CakePreview = () => {
             ingredientName={sponge ? sponge.ingredientSpecs.ingredientName : '-'}
           />
         </CakeLayerPreview>
+
       </CakePreviewContainer>
     </CakePreviewWrapper>
 

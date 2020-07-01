@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { loading } from './loading'
+import { ui } from './ui'
 
 //FETCH PREVIOUS CAKES THUNK
 export const previousCakeOrders = createSlice({
@@ -16,12 +16,12 @@ export const previousCakeOrders = createSlice({
 
 export const fetchCakeOrders = () => {
   return (dispatch) => {
-    dispatch(loading.actions.setLoading(true))
-    fetch('http://localhost:8087/cakeorders')
+    dispatch(ui.actions.setLoading(true))
+    fetch('https://cakemaker-final-project.herokuapp.com/cakeorders')
       .then(res => res.json())
       .then((json) => {
         dispatch(previousCakeOrders.actions.setPreviousCakeOrders(json))
-        dispatch(loading.actions.setLoading(false))
+        dispatch(ui.actions.setLoading(false))
       })
   }
 }

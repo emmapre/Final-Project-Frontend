@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { loading } from './loading'
-
 
 const initialState = {
   //makes an array that can contain 5 items
@@ -27,13 +25,12 @@ export const cakeOrder = createSlice({
   }
 })
 
-
 export const submitCakeOrder = (
   chosenIngredients,
   userId,
   accessToken
 ) => {
-  const SUBMIT_ORDER_URL = 'http://localhost:8087/cakeorders'
+  const SUBMIT_ORDER_URL = 'https://cakemaker-final-project.herokuapp.com/cakeorders'
   return (dispatch) => {
     fetch(SUBMIT_ORDER_URL, {
       method: 'POST',
@@ -51,32 +48,6 @@ export const submitCakeOrder = (
       })
       .catch((err) => {
         dispatch(cakeOrder.actions.setErrorMessage({ errorMessage: err }))
-      })
-  }
-}
-
-
-//FETCH PREVIOUS CAKES THUNK
-export const cakeOrders = createSlice({
-  name: 'cakeOrders',
-  initialState: {
-    allCakeOrders: []
-  },
-  reducers: {
-    setCakeOrders: (state, action) => {
-      state.allCakeOrders = action.payload
-    }
-  }
-})
-
-export const fetchCakeOrders = () => {
-  return (dispatch) => {
-    dispatch(loading.actions.setLoading(true))
-    fetch('http://localhost:8087/cakeorders')
-      .then(res => res.json())
-      .then((json) => {
-        dispatch(cakeOrders.actions.setCakeOrders(json))
-        dispatch(loading.actions.setLoading(false))
       })
   }
 }

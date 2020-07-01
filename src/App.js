@@ -7,10 +7,11 @@ import { user } from './reducers/user'
 import { cakeOrder } from './reducers/cakeOrder'
 import { layers } from './reducers/layers'
 import { previousCakeOrders } from './reducers/previousCakeOrders'
+import { ui } from './reducers/ui'
 
 import { LandingPage } from './pages/LandingPage'
-import { SignUp } from './pages/SignUp'
-import { SignIn } from './pages/SignIn'
+import { SignUpPage } from './pages/SignUpPage'
+import { SignInPage } from './pages/SignInPage'
 import { InfoPage } from './pages/InfoPage'
 import { Latest } from './pages/Latest'
 import { OrderPage } from './pages/OrderPage'
@@ -18,14 +19,13 @@ import { CakeMakerPage } from './pages/CakeMakerPage'
 import { ConfirmationPage } from './pages/ConfirmationPage'
 
 import { Header } from './components/Header'
-// import styled from 'styled-components/macro'
-
 
 const reducer = combineReducers({
   cakeOrder: cakeOrder.reducer,
   previousCakeOrders: previousCakeOrders.reducer,
   layers: layers.reducer,
   user: user.reducer,
+  ui: ui.reducer
 })
 
 export const store = configureStore({ reducer })
@@ -50,10 +50,10 @@ export const App = () => {
             <InfoPage />
           </Route>
           <Route path='/signup' exact>
-            <SignUp />
+            <SignUpPage />
           </Route>
           <Route path='/signin' exact>
-            <SignIn />
+            <SignInPage />
           </Route>
           <Route path='/order' exact>
             <OrderPage />

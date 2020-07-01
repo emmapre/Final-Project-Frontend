@@ -6,8 +6,9 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: auto;
   margin-top: 40px;
-  /* height: 50vh;  */ 
+  max-width: 350px;
   p{
     text-align: center;
   }
@@ -22,8 +23,8 @@ const Content = styled.div`
 
   @media (min-width: 768px) {
     width: 50%;
-   margin: auto;
-   margin-top: 60px;
+    margin: auto;
+    margin-top: 60px;
   }
 `
 
@@ -40,19 +41,21 @@ export const InfoPage = () => {
         This is my final project at Technigo's bootcamp. In the project I've been using React, Redux, Express API, node.js and MongoDB.
         </p>
       <p>
-        To see my other projects visit <a href='www.emmaprene.com' target="_blank" >www.emmaprene.com</a>.
+        To see my other projects visit <a href='http://www.emmaprene.com' target="_blank" rel="noopener noreferrer">www.emmaprene.com</a>.
         </p>
       <p>
         You can find the code for this project on my github:{' '}
 
-        <a href='www.github.com/emmapre/final-project-frontend'
-          target="_blank" >Frontend</a>
+        <a href='http://www.github.com/emmapre/final-project-frontend'
+          target="_blank"
+          rel="noopener noreferrer">Frontend</a>
         {' '}and{' '}
-        <a href='www.github.com/emmapre/final-project-backend'
-          target="_blank">Backend</a>.
+        <a href='http://www.github.com/emmapre/final-project-backend'
+          target="_blank"
+          rel="noopener noreferrer">Backend</a>.
 
       </p>
-      <p>This app will not actually order any cakes but if you ask nicely I might bake one for you! <span>🎂</span></p>
+      <p>This app will not actually order any cakes but if you ask nicely I might bake one for you! <span role='img' alt='cake' aria-label='cake'>🎂</span></p>
 
       <Credit>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
       </Credit>

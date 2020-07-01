@@ -9,12 +9,10 @@ const Content = styled.div`
   justify-content: center;
   align-items: center;
   max-width: 100vw;
-  /* height: 50vh;  */ 
   
   @media (min-width: 768px) {
     width: 50%;
-   margin: auto;
-   
+    margin: auto;
   }
 `
 const Title = styled.h1`
@@ -43,12 +41,11 @@ const SignContainer = styled.div`
 `
 
 export const LandingPage = () => {
-
   return (
     <Content>
       <Title>This is the CakeMaker</Title>
       <Message>Order your special cake where you choose the ingredients. </Message>
-      <Message>Click the button to start.</Message>
+      <Message>Click the button to start!</Message>
       <div>
         <StartCakeMaker to='/cakemaker'>
           <Button
@@ -85,6 +82,7 @@ export const LandingPage = () => {
             />
           </Link>
         </SignContainer>
+
       </div>
     </Content>
   )

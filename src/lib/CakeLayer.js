@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
-
 const CakeLayerIngredient = styled.div`
   height: ${props => props.height};
   width:${props => props.width};
   border-radius: 5px;
   background-color: ${props => props.background};
   margin: ${props => props.margin};
+  
   p{
     margin: 0;
   }
@@ -16,7 +16,6 @@ const CakeLayerIngredient = styled.div`
 export const CakeLayer = ({
   height,
   width,
-  ingredientName,
   backgroundColor,
   margin
 }) => {
@@ -27,7 +26,6 @@ export const CakeLayer = ({
       background={backgroundColor}
       margin={margin}
     >
-      {/* {ingredientName && <p>{ingredientName}</p>} */}
     </CakeLayerIngredient>
   )
 }

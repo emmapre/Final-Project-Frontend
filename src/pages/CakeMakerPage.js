@@ -1,7 +1,7 @@
 import React from 'react'
+import styled from 'styled-components/macro'
 import { CakePreview } from '../components/CakePreview'
 import { CakeForm } from '../components/CakeForm'
-import styled from 'styled-components/macro'
 
 const CakeMakerContainer = styled.div`
   display: flex;
@@ -13,7 +13,6 @@ const CakeMakerContainer = styled.div`
     flex-direction: row;
     margin-top: 40px;
   }
-
 `
 
 export const CakeMakerPage = () => {

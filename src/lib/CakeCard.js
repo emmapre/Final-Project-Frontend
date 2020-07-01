@@ -7,9 +7,8 @@ const StyledCard = styled.article`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 150px;
+  min-width: 180px;
   height: 200px;
-  padding: 0 16px 0 16px;
   border-radius: 3px;
   border: 2px solid #5D5D5D;
   color: 
@@ -20,7 +19,6 @@ const StyledCard = styled.article`
 `
 
 const Message = styled.p`
-background-color: #C9E0DC;
   font-size: 14px;
   color: #5D5D5D;
   text-align: center;
@@ -33,7 +31,6 @@ export const CakeCard = ({
   height,
   fontFamily,
   fontSize,
-  cakeName,
   toppingColor,
   toppingName,
   coatingColor,
@@ -44,7 +41,6 @@ export const CakeCard = ({
   firstFillingName,
   secondFillingColor,
   secondFillingName,
-  layerBackgroundColor,
   circleHeight,
   circleWidth,
   userName
@@ -61,9 +57,6 @@ export const CakeCard = ({
       circleHeight={circleHeight}
       circleWidth={circleWidth}
     >
-      {/* 
-      <CakeLayerPreviewContent>
-        <CakeLayerPreview> */}
 
       <ToppingLayer
         backgroundColor={toppingColor}
@@ -114,13 +107,6 @@ export const CakeCard = ({
         width='100px'
         margin='2px 0'
       />
-
-
-
-      {/* </CakeLayerPreview>
-      </CakeLayerPreviewContent> */}
-
-
       <Message>Ordered by: {userName}</Message>
     </StyledCard >
   )

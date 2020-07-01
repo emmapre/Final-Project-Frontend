@@ -1,10 +1,10 @@
 import React from 'react'
+import styled from 'styled-components/macro'
 import { CakePreview } from '../components/CakePreview'
 import { OrderForm } from '../components/OrderForm'
-import styled from 'styled-components/macro'
 
 const OrderContainer = styled.div`
- display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;

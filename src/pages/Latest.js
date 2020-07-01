@@ -1,39 +1,49 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components/macro'
-import { CakeCard } from '../lib/CakeCard'
 import { fetchCakeOrders } from '../reducers/previousCakeOrders'
+import { BeatLoader } from 'react-spinners'
+import { CakeCard } from '../lib/CakeCard'
 
-
-const Content = styled.div`
+const LatestCakeOrdersWrapper = styled.div`
  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   max-width: 100vw;
-  /* height: 50vh;  */ 
   
   @media (min-width: 768px) {
-    width: 50%;
+  max-width: 800px;
    margin: auto;
   }
 `
+const Title = styled.h2`
+  color: #5D5D5D;
+  font-family: 'Varela Round', sans-serif;
+`
+
 const Message = styled.p`
   font-size: 14px;
   color: #5D5D5D;
   text-align: center;
 `
+
+const LoaderWrapper = styled.div`
+ margin-top: 40px;
+`
+
 const LatestCakeOrders = styled.section`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
 `
-
 
 export const Latest = () => {
   const dispatch = useDispatch()
+  const isLoading = useSelector((store) => store.ui.isLoading)
 
   useEffect(() => {
-    console.log("useEffect")
     dispatch(fetchCakeOrders())
   }, [dispatch])
 
@@ -41,26 +51,39 @@ export const Latest = () => {
     (store) => store.previousCakeOrders.allCakeOrders)
 
   return (
-    <Content>
+    <LatestCakeOrdersWrapper>
+      <Title>
+        The latest ordered cakes
+    </Title>
       <Message>
-        The latest ordered cakes.
+        Take a look at what other people ordered.
     </Message>
 
       <LatestCakeOrders>
-        {previousCakeOrders.map((cakeOrder) => (
-          <CakeCard
-            key={cakeOrder._id}
-            toppingColor={cakeOrder.chosenIngredients[0] ? cakeOrder.chosenIngredients[0].ingredientSpecs.ingredientColor : 'gray'}
-            coatingColor={cakeOrder.chosenIngredients[1] ? cakeOrder.chosenIngredients[1].ingredientSpecs.ingredientColor : 'gray'}
-            spongeColor={cakeOrder.chosenIngredients[2] ? cakeOrder.chosenIngredients[2].ingredientSpecs.ingredientColor : 'gray'}
-            firstFillingColor={cakeOrder.chosenIngredients[3] ? cakeOrder.chosenIngredients[3].ingredientSpecs.ingredientColor : 'gray'}
-            secondFillingColor={cakeOrder.chosenIngredients[4] ? cakeOrder.chosenIngredients[4].ingredientSpecs.ingredientColor : 'gray'}
-            userName={cakeOrder.userId ? cakeOrder.userId.name : 'Unknown'}
-          >
-          </CakeCard>
 
-        ))}
+        {isLoading &&
+          <LoaderWrapper>
+            <BeatLoader color='#5D5D5D' size='25' />
+          </LoaderWrapper>
+
+        }
+
+        {!isLoading &&
+          previousCakeOrders.map((cakeOrder) => (
+            <CakeCard
+              key={cakeOrder._id}
+              toppingColor={cakeOrder.chosenIngredients[0] ? cakeOrder.chosenIngredients[0].ingredientSpecs.ingredientColor : 'gray'}
+              coatingColor={cakeOrder.chosenIngredients[1] ? cakeOrder.chosenIngredients[1].ingredientSpecs.ingredientColor : 'gray'}
+              spongeColor={cakeOrder.chosenIngredients[2] ? cakeOrder.chosenIngredients[2].ingredientSpecs.ingredientColor : 'gray'}
+              firstFillingColor={cakeOrder.chosenIngredients[3] ? cakeOrder.chosenIngredients[3].ingredientSpecs.ingredientColor : 'gray'}
+              secondFillingColor={cakeOrder.chosenIngredients[4] ? cakeOrder.chosenIngredients[4].ingredientSpecs.ingredientColor : 'gray'}
+              userName={cakeOrder.userId ? cakeOrder.userId.name : 'Unknown'}
+            >
+            </CakeCard>
+          ))
+        }
+
       </LatestCakeOrders>
-    </Content>
+    </LatestCakeOrdersWrapper>
   )
 }

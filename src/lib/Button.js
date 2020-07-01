@@ -39,7 +39,8 @@ export const Button = ({
   fontSize
 }) => {
   return (
-    < StyledButton
+
+    <StyledButton
       onClick={onClick}
       background={backgroundColor}
       border={borderProperties}
@@ -49,9 +50,11 @@ export const Button = ({
       fontFamily={fontFamily}
       fontSize={fontSize}
     >
+
       {icon && <Icon>{icon}</Icon>
       }
       {buttonText}
+
     </StyledButton >
   )
 }

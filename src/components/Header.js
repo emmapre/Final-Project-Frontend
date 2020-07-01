@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, NavLink, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { signout } from '../reducers/user'
 import styled from 'styled-components/macro'
+import { signout } from '../reducers/user'
+import { Burger } from '../components/Burger'
+import { BurgerMenu } from '../components/BurgerMenu'
 import { Button } from '../lib/Button'
 import cakelogo from '../assets/cakelogo.svg'
 
@@ -10,10 +12,9 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  max-width: 100%;
   height: 100px;
   background-color: #FBC4C4;
-
 `
 
 const LogoTitleContainer = styled.div`
@@ -29,39 +30,47 @@ const Logo = styled.img`
 `
 
 const StyledLink = styled(Link)`
-
-    color: #000;
-    text-decoration:none;
+  color: #000;
+  text-decoration: none;
   
 `
 
 const StyledNavLink = styled(NavLink)`
     color: #000;
-    text-decoration:none;
+    text-decoration: none;
+
     &:hover{
       text-decoration: underline;
     }
+
     &.active {
       text-decoration: underline;
   }
-  
 `
 
 const Title = styled.h1`
   margin: 0 0 0 20px;
-  font-size: 40px;
+  font-size: 30px;
+
+  @media (min-width: 768px){
+    font-size: 40px;
+  }
+`
+
+const BurgerContainer = styled.div`
+  @media(min-width: 768px){
+    display: none;
+  }
 `
 
 const Navbar = styled.div`
   display: none;
- 
 
   @media (min-width: 768px){
     display: flex;
     justify-content: space-around;
     max-width: 50%;
-}
-  
+  }
 `
 
 const NavbarList = styled.ul`
@@ -74,24 +83,24 @@ const NavbarList = styled.ul`
   }
 `
 
-
-
 export const Header = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const history = useHistory()
+
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (signout) {
       history.push('/')
     }
-  }, [signout]);
+  },
+    // [signout]
+  )
 
-  const accessToken = useSelector((store) => store.user.signin.accessToken);
+  const accessToken = useSelector((store) => store.user.signin.accessToken)
 
   return (
     <StyledHeader>
-
-
       <StyledLink to='/'>
         <LogoTitleContainer>
           <Logo src={cakelogo} alt='cake logo' />
@@ -99,12 +108,18 @@ export const Header = () => {
         </LogoTitleContainer>
       </StyledLink>
 
+      <BurgerContainer>
+        <Burger open={open} setOpen={setOpen} />
+        <BurgerMenu open={open} setOpen={setOpen} />
+      </BurgerContainer>
+
       <Navbar>
         <NavbarList>
           <StyledNavLink to='/cakeMaker'><li>Maker</li></StyledNavLink>
           <StyledNavLink to='/latest'><li>Latest</li></StyledNavLink>
           <StyledNavLink to='/info'><li>About</li></StyledNavLink>
         </ NavbarList>
+
         {!accessToken &&
           <Link to='/signin'>
             <Button
@@ -116,7 +131,6 @@ export const Header = () => {
             />
           </Link>
         }
-
 
         {accessToken &&
           <Link to='/'>
@@ -130,36 +144,9 @@ export const Header = () => {
             />
           </Link>
         }
+
       </Navbar>
-
-
 
     </StyledHeader >
   )
 }
-
-
-// export const Button = ({
-//   onClick,
-//   icon,
-//   buttonText,
-//   backgroundColor,
-//   textColor,
-//   borderProperties,
-//   width,
-//   fontFamily
-// }) => {
-//   return (
-//     < StyledButton
-//       onClick={onClick}
-//       background={backgroundColor}
-//       border={borderProperties}
-//       width={width}
-//       color={textColor}
-//       fontFamily={fontFamily}
-//     >
-//       {icon && <Icon>{icon}</Icon>
-//       }
-//       {buttonText}
-//     </StyledButton >
-//   )

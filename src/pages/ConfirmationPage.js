@@ -4,17 +4,18 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { Button } from '../lib/Button'
 
-
 const Content = styled.div`
- display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   max-width: 100vw;
-  /* height: 50vh;  */ 
+  margin-top: 40px;
+
   h2{
     color: #5D5D5D;
     margin: 0 0 10px 0;
+    text-align: center;
   }
 
   @media (min-width: 768px) {
@@ -35,6 +36,7 @@ export const ConfirmationPage = () => {
 
   return (
     <Content>
+
       {accessToken && (
         <h2>
           Your order is placed. We will bake your cake as soon as possible!
@@ -57,7 +59,6 @@ export const ConfirmationPage = () => {
           fontFamily='"Varela Round", sans-serif'
         />
       </Link>
-
     </Content>
   )
 }

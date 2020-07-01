@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components/macro'
 import { signin } from '../reducers/user'
 import { Button } from 'lib/Button'
-import styled from 'styled-components/macro'
 
 const Content = styled.div`
-display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   max-width: 100vw;
-  /* height: 50vh;  */ 
   
   @media (min-width: 768px) {
     width: 50%;
-   margin: auto;
+    margin: auto;
    
   }
 `
@@ -41,13 +40,13 @@ const StyledLink = styled(Link)`
     color: #5D5D5D;
 `
 
-export const SignIn = () => {
-  const dispatch = useDispatch();
+export const SignInPage = () => {
+  const dispatch = useDispatch()
   const history = useHistory()
-  const accessToken = useSelector((store) => store.user.signin.accessToken);
-  const errorMessage = useSelector((store) => store.user.signin.errorMessage);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const accessToken = useSelector((store) => store.user.signin.accessToken)
+  const errorMessage = useSelector((store) => store.user.signin.errorMessage)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleSignin = event => {
     event.preventDefault()
@@ -58,7 +57,9 @@ export const SignIn = () => {
     if (accessToken) {
       history.push('/cakemaker')
     }
-  }, [accessToken]);
+  },
+    // [accessToken]
+  )
 
   return (
     <Content>
@@ -104,7 +105,9 @@ export const SignIn = () => {
           </Link>
         </div>
         <Message>No account yet? <StyledLink to='/signup'>Go to the sign up page.</StyledLink></Message>
+
         {errorMessage && <Message> {`${errorMessage}`}</Message>}
+
       </Form>
     </Content>
   )

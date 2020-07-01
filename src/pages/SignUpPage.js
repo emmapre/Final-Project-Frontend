@@ -6,16 +6,15 @@ import { Button } from 'lib/Button'
 import styled from 'styled-components/macro'
 
 const Content = styled.div`
- display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   max-width: 100vw;
-  /* height: 50vh;  */ 
-  
+
   @media (min-width: 768px) {
     width: 50%;
-   margin: auto;
+    margin: auto;
    
   }
 `
@@ -41,7 +40,7 @@ const StyledLink = styled(Link)`
     color: #5D5D5D;
 `
 
-export const SignUp = () => {
+export const SignUpPage = () => {
   const dispatch = useDispatch();
   const history = useHistory()
   const errorMessage = useSelector((store) => store.user.signin.errorMessage)
@@ -50,8 +49,6 @@ export const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-
 
   const handleSignUp = event => {
     event.preventDefault()
@@ -63,13 +60,11 @@ export const SignUp = () => {
 
   useEffect(() => {
     if (accessToken) {
-      history.push('/')
+      history.push('/signin')
     }
   }, [accessToken, history]);
 
-
   return (
-
     <Content>
       <Title>Sign up.</Title>
       <Form onSubmit={handleSignUp}>
@@ -116,8 +111,10 @@ export const SignUp = () => {
           </Link>
         </div>
         <Message>Already have an account? <StyledLink to='/signin'>Go to the sign in page.</StyledLink></Message>
+
         {statusMessage && <Message> {`${statusMessage}`}</Message>}
         {errorMessage && <Message> {`${errorMessage}`}</Message>}
+
       </Form>
     </Content>
 
